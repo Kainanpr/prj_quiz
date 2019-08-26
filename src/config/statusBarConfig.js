@@ -1,4 +1,4 @@
-import {StatusBar} from 'react-native';
+import { StatusBar } from 'react-native';
 
 // Android
 StatusBar.setBackgroundColor('#008000');

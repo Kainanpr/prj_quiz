@@ -1,18 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, TouchableHighlight, TextInput, Image} from 'react-native';
-import styles from './styles.js';
+import {
+  View, Text, TouchableHighlight, TextInput, Image,
+} from 'react-native';
+import styles from './styles';
+import ifspLogoImg from '../../assets/images/ifsp_logo.png';
 
 export default class SignIn extends Component {
   static navigationOptions = {
     header: null,
-  };
-
-  static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-      dispatch: PropTypes.func,
-    }).isRequired,
   };
 
   state = {
@@ -20,12 +16,12 @@ export default class SignIn extends Component {
     password: '',
   };
 
-  handleEmailChange = username => {
-    this.setState({username});
+  handleEmailChange = (username) => {
+    this.setState({ username });
   };
 
-  handlePasswordChange = password => {
-    this.setState({password});
+  handlePasswordChange = (password) => {
+    this.setState({ password });
   };
 
   handleCreateAccountPress = () => {
@@ -33,7 +29,7 @@ export default class SignIn extends Component {
   };
 
   handleSignInPress = () => {
-    const {username} = this.state;
+    const { username } = this.state;
 
     this.props.navigation.navigate('Home', {
       username,
@@ -45,7 +41,7 @@ export default class SignIn extends Component {
       <View style={styles.container}>
         <Image
           style={styles.logo}
-          source={require('../../assets/images/ifsp_logo.png')}
+          source={ifspLogoImg}
           resizeMode="contain"
         />
         <TextInput
@@ -67,7 +63,8 @@ export default class SignIn extends Component {
         />
         <TouchableHighlight
           style={styles.button}
-          onPress={this.handleSignInPress}>
+          onPress={this.handleSignInPress}
+        >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.signUpLink}>
@@ -77,3 +74,7 @@ export default class SignIn extends Component {
     );
   }
 }
+
+SignIn.propTypes = {
+  navigation: PropTypes.objectOf(PropTypes.any).isRequired,
+};
