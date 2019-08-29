@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {
   View, Text, TouchableHighlight, TextInput, Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import styles from './styles';
 import ifspLogoImg from '../../assets/images/ifsp_logo.png';
 
@@ -28,12 +30,9 @@ export default class SignIn extends Component {
     this.props.navigation.navigate('SignUp');
   };
 
-  handleSignInPress = () => {
-    const { username } = this.state;
-
-    this.props.navigation.navigate('Home', {
-      username,
-    });
+  handleSignInPress = async () => {
+    await AsyncStorage.setItem('userToken', 'Kainan');
+    this.props.navigation.navigate('Home');
   };
 
   render() {

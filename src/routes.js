@@ -7,6 +7,7 @@ import {
   createAppContainer,
 } from 'react-navigation';
 
+import AuthLoadingScreen from './pages/authLoading/authLoadingScreen';
 import SignInScreen from './pages/signIn/signInScreen';
 import HomeScreen from './pages/home/homeScreen';
 import ProfileScreen from './pages/profile/profileScreen';
@@ -24,6 +25,7 @@ const HomeDrawer = createDrawerNavigator({
 });
 
 const AppContainer = createSwitchNavigator({
+  AuthLoading: AuthLoadingScreen,
   SignInStack,
   HomeDrawer,
 });

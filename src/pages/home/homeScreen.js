@@ -35,7 +35,7 @@ const HomeScreen = (props) => (
       <Card>
         <CardItem>
           <Body>
-            <Text>Welcome {props.navigation.getParam('username')}</Text>
+            <Text>Welcome!</Text>
           </Body>
         </CardItem>
       </Card>
