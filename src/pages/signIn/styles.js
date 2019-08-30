@@ -5,17 +5,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5F5F5',
   },
   logo: {
-    height: '30%',
+    height: '10%',
     marginBottom: 40,
   },
   input: {
     paddingHorizontal: 20,
     paddingVertical: 15,
-    borderRadius: 5,
-    backgroundColor: '#FFF',
+    borderRadius: 100,
+    backgroundColor: 'rgba(255,255,255,0.5)',
     alignSelf: 'stretch',
     marginBottom: 15,
     marginHorizontal: 20,
@@ -23,8 +22,8 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 20,
-    borderRadius: 5,
-    backgroundColor: '#FC6663',
+    borderRadius: 100,
+    backgroundColor: 'rgba(24,96,120,0.7)',
     alignSelf: 'stretch',
     margin: 15,
     marginHorizontal: 20,
@@ -40,9 +39,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   signUpLinkText: {
-    color: '#999',
+    color: '#FFF',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
   },
 });

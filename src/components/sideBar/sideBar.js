@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Content,
@@ -9,6 +9,8 @@ import {
   Container,
   Left,
 } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import styles from './styles';
 
 const datas = [
@@ -26,36 +28,59 @@ const datas = [
   },
 ];
 
-const SideBar = (props) => (
-  <Container>
-    <Content
-      bounces={false}
-    >
-      <List
-        dataArray={datas}
-        keyExtractor={(item, index) => index.toString()}
-        renderRow={(data) => (
-          <ListItem
-            button
-            noBorder
-            onPress={() => props.navigation.navigate(data.route)}
-          >
-            <Left>
-              <Icon
-                active
-                name={data.icon}
-                style={{ color: '#777', fontSize: 26, width: 30 }}
-              />
-              <Text style={styles.text}>
-                {data.name}
-              </Text>
-            </Left>
-          </ListItem>
-        )}
-      />
-    </Content>
-  </Container>
-);
+class SideBar extends Component {
+  handleSignOutPress = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('SignInStack');
+  }
+
+  render() {
+    return (
+      <Container>
+        <Content
+          bounces={false}
+        >
+          <List>
+            {datas.map((item) => (
+              <ListItem
+                button
+                noBorder
+                onPress={() => this.props.navigation.navigate(item.route)}
+              >
+                <Left>
+                  <Icon
+                    active
+                    name={item.icon}
+                    style={styles.icon}
+                  />
+                  <Text style={styles.text}>
+                    {item.name}
+                  </Text>
+                </Left>
+              </ListItem>
+            ))}
+            <ListItem
+              button
+              noBorder
+              onPress={() => this.handleSignOutPress()}
+            >
+              <Left>
+                <Icon
+                  active
+                  name="exit"
+                  style={styles.icon}
+                />
+                <Text style={styles.text}>
+                  Sair
+                </Text>
+              </Left>
+            </ListItem>
+          </List>
+        </Content>
+      </Container>
+    );
+  }
+}
 
 export default SideBar;
 

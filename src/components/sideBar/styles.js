@@ -6,4 +6,9 @@ export default {
     fontSize: 16,
     marginLeft: 20,
   },
+  icon: {
+    color: '#777',
+    fontSize: 26,
+    width: 30,
+  },
 };
