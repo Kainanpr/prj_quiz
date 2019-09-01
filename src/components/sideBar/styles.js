@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 
 export default {
   content: {
-    backgroundColor: 'rgba(0,0,0,0.8)',
+    backgroundColor: 'rgba(24,96,120,1)',
   },
   containerLogo: {
     padding: 50,

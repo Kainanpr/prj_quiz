@@ -38,7 +38,7 @@ class SideBar extends Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.content}>
         <Content
           bounces={false}
           style={styles.content}
