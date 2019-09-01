@@ -9,5 +9,6 @@ module.exports = {
     "react/destructuring-assignment": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
     "react/jsx-one-expression-per-line": 0,
+    "object-curly-newline": 0,
   },
 };

@@ -9,12 +9,17 @@ import {
 
 import AuthLoadingScreen from './pages/authLoading/authLoadingScreen';
 import SignInScreen from './pages/signIn/signInScreen';
+import SignUpScreen from './pages/signUp/signUpScreen';
 import HomeScreen from './pages/home/homeScreen';
 import ProfileScreen from './pages/profile/profileScreen';
 import SideBar from './components/sideBar/sideBar';
 
 const SignInStack = createStackNavigator({
   SignIn: { screen: SignInScreen },
+  SignUp: { screen: SignUpScreen },
+}, {
+  initialRouteName: 'SignIn',
+  headerMode: 'none',
 });
 
 const HomeDrawer = createDrawerNavigator({

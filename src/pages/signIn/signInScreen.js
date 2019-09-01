@@ -7,8 +7,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
-import quizLogoImg from '../../assets/images/signIn/quiz_logo.png';
-import backgroundImg from '../../assets/images/signIn/background-signin.jpg';
+import quizLogoImg from '../../assets/images/quiz_logo.png';
+import backgroundImg from '../../assets/images/background-signin.jpg';
 
 export default class SignIn extends Component {
   static navigationOptions = {
@@ -38,12 +38,12 @@ export default class SignIn extends Component {
   };
 
   handleSignUpPress = () => {
-    console.log('Tela criar conta');
+    this.props.navigation.navigate('SignUp');
   };
 
   render() {
     return (
-      <ImageBackground source={backgroundImg} style={{ flex: 1, resizeMode: 'contain' }}>
+      <ImageBackground source={backgroundImg} style={styles.imageBackgroundContainer}>
         <StatusBar backgroundColor="#218b8f" />
         <View style={styles.container}>
           <View style={styles.containerLogo}>
@@ -56,7 +56,7 @@ export default class SignIn extends Component {
           <View style={styles.containerForm}>
             <TextInput
               style={styles.input}
-              placeholder="Username"
+              placeholder="E-mail"
               value={this.state.email}
               onChangeText={this.handleEmailChange}
               autoCapitalize="none"
@@ -64,7 +64,7 @@ export default class SignIn extends Component {
             />
             <TextInput
               style={styles.input}
-              placeholder="Password"
+              placeholder="Senha"
               value={this.state.password}
               onChangeText={this.handlePasswordChange}
               autoCapitalize="none"
