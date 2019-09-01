@@ -7,12 +7,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
     padding: 20,
   },
   headerContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    marginBottom: 20,
   },
   textHeader: {
     paddingVertical: 20,
@@ -36,9 +36,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     left: 15,
-  },
-  formContainer: {
-    flex: 2,
   },
   inputContainer: {
     marginTop: 20,

@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -45,7 +44,7 @@ class SignUpScreen extends Component {
   render() {
     return (
       <ImageBackground source={backgroundImg} style={styles.imageBackgroundContainer}>
-        <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
+        <View style={styles.container}>
           <View style={styles.headerContainer}>
             <Text style={styles.textHeader}>Faça seu cadastro</Text>
             <View style={styles.line} />
@@ -122,7 +121,7 @@ class SignUpScreen extends Component {
               <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
+        </View>
       </ImageBackground>
     );
   }
