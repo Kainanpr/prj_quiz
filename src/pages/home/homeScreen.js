@@ -15,9 +15,11 @@ import {
   Right,
 } from 'native-base';
 
+import styles from './styles';
+
 const HomeScreen = (props) => (
   <Container>
-    <Header>
+    <Header androidStatusBarColor="rgba(24,96,120,1)" style={styles.header}>
       <Left>
         <Button
           transparent

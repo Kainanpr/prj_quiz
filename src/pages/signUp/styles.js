@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     left: 15,
   },
   inputContainer: {
-    marginTop: 20,
   },
   buttonSignUp: {
     borderRadius: 50,

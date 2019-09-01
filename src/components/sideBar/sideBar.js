@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { View, Image } from 'react-native';
 import {
   Content,
   Text,
@@ -11,6 +12,7 @@ import {
 } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import quizLogoImg from '../../assets/images/quiz_logo.png';
 import styles from './styles';
 
 const datas = [
@@ -39,7 +41,15 @@ class SideBar extends Component {
       <Container>
         <Content
           bounces={false}
+          style={styles.content}
         >
+          <View style={styles.containerLogo}>
+            <Image
+              style={styles.logo}
+              source={quizLogoImg}
+              resizeMode="contain"
+            />
+          </View>
           <List>
             {datas.map((item) => (
               <ListItem
