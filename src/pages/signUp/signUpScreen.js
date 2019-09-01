@@ -69,7 +69,7 @@ class SignUpScreen extends Component {
             </View>
             <View style={styles.inputContainer}>
               <Icon
-                name="ios-person"
+                name="ios-mail"
                 size={28}
                 color="#ffffff"
                 style={styles.inputIcon}

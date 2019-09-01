@@ -4,6 +4,7 @@ import {
   View, Text, TouchableHighlight, TextInput,
   Image, ImageBackground, StatusBar, TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
@@ -54,23 +55,41 @@ export default class SignIn extends Component {
             />
           </View>
           <View style={styles.containerForm}>
-            <TextInput
-              style={styles.input}
-              placeholder="E-mail"
-              value={this.state.email}
-              onChangeText={this.handleEmailChange}
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Senha"
-              value={this.state.password}
-              onChangeText={this.handlePasswordChange}
-              autoCapitalize="none"
-              autoCorrect={false}
-              secureTextEntry
-            />
+            <View>
+              <Icon
+                name="ios-mail"
+                size={28}
+                color="#ffffff"
+                style={styles.inputIcon}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="E-mail"
+                placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                value={this.state.email}
+                onChangeText={this.handleEmailChange}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+            </View>
+            <View>
+              <Icon
+                name="ios-lock"
+                size={28}
+                color="#ffffff"
+                style={styles.inputIcon}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Senha"
+                placeholderTextColor="rgba(255, 255, 255, 0.7)"
+                value={this.state.password}
+                onChangeText={this.handlePasswordChange}
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry
+              />
+            </View>
             <TouchableHighlight
               style={styles.button}
               underlayColor="rgba(24,96,120,1)"
