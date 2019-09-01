@@ -10,16 +10,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     padding: 20,
   },
+  headerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   textHeader: {
     paddingVertical: 20,
     color: 'rgba(125,235,235,1)',
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   fraseHeader: {
-    paddingTop: 20,
+    paddingTop: 26,
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
   },
   input: {
     fontSize: 16,
@@ -32,6 +36,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     left: 15,
+  },
+  formContainer: {
+    flex: 2,
   },
   inputContainer: {
     marginTop: 20,
