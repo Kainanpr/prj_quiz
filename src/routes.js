@@ -12,6 +12,7 @@ import SignInScreen from './pages/signIn/signInScreen';
 import SignUpScreen from './pages/signUp/signUpScreen';
 import HomeScreen from './pages/home/homeScreen';
 import ProfileScreen from './pages/profile/profileScreen';
+import ChooseThemeScreen from './pages/chooseTheme/chooseThemeScreen';
 import SideBar from './components/sideBar/sideBar';
 
 const SignInStack = createStackNavigator({
@@ -22,8 +23,16 @@ const SignInStack = createStackNavigator({
   headerMode: 'none',
 });
 
-const HomeDrawer = createDrawerNavigator({
+const StartingGameStack = createStackNavigator({
   Home: { screen: HomeScreen },
+  ChooseTheme: { screen: ChooseThemeScreen },
+}, {
+  initialRouteName: 'Home',
+  headerMode: 'none',
+});
+
+const HomeDrawer = createDrawerNavigator({
+  StartingGameStack,
   Profile: { screen: ProfileScreen },
 }, {
   contentComponent: ({ navigation }) => <SideBar navigation={navigation} />,

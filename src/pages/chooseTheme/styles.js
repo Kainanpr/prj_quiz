@@ -6,16 +6,23 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   container: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   header: {
     backgroundColor: 'rgba(24,96,120,1)',
   },
   content: {
+    flex: 1,
     padding: 20,
   },
+  containerText: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  containerButton: {
+    flex: 2,
+  },
   text: {
-    paddingVertical: 70,
     fontSize: 40,
     color: 'white',
     fontWeight: 'bold',

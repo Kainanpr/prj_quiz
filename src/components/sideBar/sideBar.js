@@ -44,7 +44,7 @@ class SideBar extends Component {
               <Left>
                 <Icon
                   active
-                  name="phone-portrait"
+                  name="home"
                   style={styles.icon}
                 />
                 <Text style={styles.text}>

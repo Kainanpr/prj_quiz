@@ -14,7 +14,7 @@ import {
 } from 'native-base';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import quizLogoImg from '../../assets/images/quiz_logo.png';
+import quizLogoImg from '../../assets/images/quiz_logo_simbolo.png';
 import ifspLogoImg from '../../assets/images/ifsp_logo.png';
 import backgroundImg from '../../assets/images/background-signin.jpg';
 import styles from './styles';
@@ -43,7 +43,14 @@ const HomeScreen = (props) => (
             source={quizLogoImg}
             resizeMode="contain"
           />
-          <Button style={styles.button} iconLeft rounded block transparent>
+          <Button
+            style={styles.button}
+            iconLeft
+            rounded
+            block
+            transparent
+            onPress={() => props.navigation.navigate('ChooseTheme')}
+          >
             <IconMaterialCommunity
               name="play"
               size={30}
