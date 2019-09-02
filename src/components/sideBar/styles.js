@@ -10,7 +10,7 @@ export default {
     justifyContent: 'center',
   },
   logo: {
-    height: 70,
+    height: 100,
     resizeMode: 'contain',
   },
   text: {

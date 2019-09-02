@@ -12,7 +12,7 @@ import {
 } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import quizLogoImg from '../../assets/images/quiz_logo.png';
+import quizLogoImg from '../../assets/images/quiz_logo_simbolo.png';
 import styles from './styles';
 
 const datas = [

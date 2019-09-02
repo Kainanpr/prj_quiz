@@ -90,13 +90,9 @@ export default class SignIn extends Component {
                 secureTextEntry
               />
             </View>
-            <TouchableHighlight
-              style={styles.button}
-              underlayColor="rgba(24,96,120,1)"
-              onPress={this.handleSignInPress}
-            >
+            <TouchableOpacity style={styles.button} onPress={this.handleSignInPress}>
               <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.signUpLink}
               onPress={this.handleSignUpPress}

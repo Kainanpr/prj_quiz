@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    height: 100,
+    height: 200,
     resizeMode: 'contain',
   },
   containerForm: {
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 20,
-    borderRadius: 100,
-    backgroundColor: 'rgba(24,96,120,0.7)',
+    borderRadius: 50,
+    backgroundColor: 'rgba(24,96,120,1)',
     marginTop: 15,
   },
   buttonText: {
