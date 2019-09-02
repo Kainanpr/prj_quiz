@@ -6,28 +6,51 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   container: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   header: {
     backgroundColor: 'rgba(24,96,120,1)',
   },
   content: {
+    flex: 1,
     padding: 20,
   },
+  containerLogoQuiz: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoQuiz: {
+    height: 200,
+    resizeMode: 'contain',
+  },
+  containerButton: {
+    flex: 1,
+  },
   text: {
-    paddingVertical: 70,
     fontSize: 40,
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },
   button: {
-    backgroundColor: 'rgba(24,96,120,1)',
-    marginBottom: 30,
-    padding: 40,
+    borderWidth: 2,
+    borderColor: 'white',
+    marginTop: 30,
+    padding: 30,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 30,
+    color: 'white',
+  },
+  containerLogoIfsp: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  logoIfsp: {
+    height: 100,
+    resizeMode: 'contain',
   },
 });
 

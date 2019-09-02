@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   containerLogo: {
-    marginBottom: 60,
     alignItems: 'center',
   },
   logo: {

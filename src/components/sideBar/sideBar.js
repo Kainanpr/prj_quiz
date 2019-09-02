@@ -15,21 +15,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import quizLogoImg from '../../assets/images/quiz_logo_simbolo.png';
 import styles from './styles';
 
-const datas = [
-  {
-    name: 'Home',
-    route: 'Home',
-    icon: 'phone-portrait',
-    bg: '#C5F442',
-  },
-  {
-    name: 'Profile',
-    route: 'Profile',
-    icon: 'arrow-up',
-    bg: '#477EEA',
-  },
-];
-
 class SideBar extends Component {
   handleSignOutPress = async () => {
     await AsyncStorage.clear();
@@ -51,24 +36,22 @@ class SideBar extends Component {
             />
           </View>
           <List>
-            {datas.map((item) => (
-              <ListItem
-                button
-                noBorder
-                onPress={() => this.props.navigation.navigate(item.route)}
-              >
-                <Left>
-                  <Icon
-                    active
-                    name={item.icon}
-                    style={styles.icon}
-                  />
-                  <Text style={styles.text}>
-                    {item.name}
-                  </Text>
-                </Left>
-              </ListItem>
-            ))}
+            <ListItem
+              button
+              noBorder
+              onPress={() => this.props.navigation.navigate('Home')}
+            >
+              <Left>
+                <Icon
+                  active
+                  name="phone-portrait"
+                  style={styles.icon}
+                />
+                <Text style={styles.text}>
+                  Página inicial
+                </Text>
+              </Left>
+            </ListItem>
             <ListItem
               button
               noBorder
