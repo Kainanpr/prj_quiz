@@ -22,7 +22,7 @@ import styles from './styles';
 const HomeScreen = (props) => (
   <ImageBackground source={backgroundImg} style={styles.imageBackgroundContainer}>
     <Container style={styles.container}>
-      <Header androidStatusBarColor="rgba(24,96,120,1)" style={styles.header}>
+      <Header androidStatusBarColor="#186078" style={styles.header}>
         <Left>
           <Button
             transparent

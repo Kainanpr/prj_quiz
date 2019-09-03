@@ -6,10 +6,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   container: {
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'white',
   },
   header: {
-    backgroundColor: 'rgba(24,96,120,1)',
+    backgroundColor: '#186078',
   },
   content: {
     flex: 1,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: 'rgba(24,96,120,1)',
+    backgroundColor: '#186078',
     marginBottom: 30,
     padding: 40,
   },

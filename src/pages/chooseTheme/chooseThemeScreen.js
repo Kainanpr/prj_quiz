@@ -1,63 +1,67 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ImageBackground } from 'react-native';
 import {
   Icon,
   Button,
-  Text,
   Container,
   Body,
-  View,
+  Tabs,
+  Tab,
+  ScrollableTab,
   Header,
   Title,
   Left,
   Right,
 } from 'native-base';
-import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import backgroundImg from '../../assets/images/background-signin.jpg';
 import styles from './styles';
+import ChooseContentScreen from '../chooseContent/chooseContentScreen';
 
-const ChooseThemeScreen = (props) => (
-  <ImageBackground source={backgroundImg} style={styles.imageBackgroundContainer}>
-    <Container style={styles.container}>
-      <Header androidStatusBarColor="rgba(24,96,120,1)" style={styles.header}>
-        <Left>
-          <Button transparent onPress={() => props.navigation.goBack()}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Temas</Title>
-        </Body>
-        <Right />
-      </Header>
-      <View padder style={styles.content}>
-        <View style={styles.containerText}>
-          <Text style={styles.text}>O que você quer aprender hoje?</Text>
-        </View>
-        <View style={styles.containerButton}>
-          <Button style={styles.button} iconLeft rounded block>
-            <IconMaterialCommunity
-              name="airplane"
-              size={20}
-              color="#ffffff"
-            />
-            <Text style={styles.buttonText}>Vocabulário</Text>
-          </Button>
-          <Button style={styles.button} iconLeft rounded block>
-            <IconMaterialCommunity
-              name="book-open-variant"
-              size={20}
-              color="#ffffff"
-            />
-            <Text style={styles.buttonText}>Gramática</Text>
-          </Button>
-        </View>
-      </View>
-    </Container>
-  </ImageBackground>
-);
+
+class ChooseThemeScreen extends Component {
+  state = {
+    themes: [],
+  }
+
+  componentDidMount() {
+    const themes = [{
+      name: 'Vocabulário',
+      contents: ['Partes da Aeronave', 'Danos', 'Características Técnicas'],
+    }, {
+      name: 'Gramática',
+      contents: ['Modais', 'Presente Simples', 'Elementos de Referência'],
+    }];
+
+    this.setState({ themes });
+  }
+
+  render() {
+    const { themes } = this.state;
+
+    return (
+      <Container style={styles.container}>
+        <Header androidStatusBarColor="#186078" style={styles.header} hasTabs>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Temas</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Tabs renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#186078' }} />}>
+          {themes.map((item, index) => (
+            <Tab key={index.toString()} activeTabStyle={{ backgroundColor: '#186078' }} tabStyle={{ backgroundColor: '#186078' }} heading={item.name}>
+              <ChooseContentScreen contents={item.contents} />
+            </Tab>
+          ))}
+        </Tabs>
+      </Container>
+    );
+  }
+}
 
 ChooseThemeScreen.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.any).isRequired,

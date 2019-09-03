@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   header: {
-    backgroundColor: 'rgba(24,96,120,1)',
+    backgroundColor: '#186078',
   },
   content: {
     flex: 1,

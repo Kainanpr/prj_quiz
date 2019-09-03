@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     paddingVertical: 20,
-    color: 'rgba(125,235,235,1)',
+    color: '#7debeb',
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   buttonSignUp: {
     borderRadius: 50,
-    backgroundColor: 'rgba(24,96,120,1)',
+    backgroundColor: '#186078',
     justifyContent: 'center',
     marginTop: 40,
     padding: 10,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   line: {
     borderWidth: 1,
-    borderColor: 'rgba(125,235,235,1)',
+    borderColor: '#7debeb',
   },
 });
 
