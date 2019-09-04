@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  imageBackgroundContainer: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
   container: {
     backgroundColor: 'white',
   },

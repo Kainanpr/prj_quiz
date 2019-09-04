@@ -16,13 +16,14 @@ class ChooseContentScreen extends Component {
     return (
       <Container style={styles.container}>
         <ScrollView>
-          {contents.map((item, index) => (
+          {contents.map((item) => (
             <TouchableOpacity
-              key={index.toString()}
+              key={item.id.toString()}
               activeOpacity={0.6}
+              onPress={() => this.props.onContentPress(item)}
             >
               <View style={styles.containerCard}>
-                <Text style={styles.buttonText}>{item}</Text>
+                <Text style={styles.buttonText}>{item.name}</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -34,10 +35,12 @@ class ChooseContentScreen extends Component {
 
 ChooseContentScreen.propTypes = {
   contents: PropTypes.arrayOf(PropTypes.any),
+  onContentPress: PropTypes.func,
 };
 
 ChooseContentScreen.defaultProps = {
   contents: [],
+  onContentPress: () => {},
 };
 
 export default ChooseContentScreen;

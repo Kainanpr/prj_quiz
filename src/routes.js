@@ -13,6 +13,7 @@ import SignUpScreen from './pages/signUp/signUpScreen';
 import HomeScreen from './pages/home/homeScreen';
 import ProfileScreen from './pages/profile/profileScreen';
 import ChooseThemeScreen from './pages/chooseTheme/chooseThemeScreen';
+import PracticeScreen from './pages/practice/practiceScreen';
 import SideBar from './components/sideBar/sideBar';
 
 const SignInStack = createStackNavigator({
@@ -26,6 +27,7 @@ const SignInStack = createStackNavigator({
 const StartingGameStack = createStackNavigator({
   Home: { screen: HomeScreen },
   ChooseTheme: { screen: ChooseThemeScreen },
+  Practice: { screen: PracticeScreen },
 }, {
   initialRouteName: 'Home',
   headerMode: 'none',
