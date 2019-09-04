@@ -15,7 +15,7 @@ class ChooseContentScreen extends Component {
 
     return (
       <Container style={styles.container}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scroll}>
           {contents.map((item) => (
             <TouchableOpacity
               key={item.id.toString()}

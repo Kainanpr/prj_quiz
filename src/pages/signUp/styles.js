@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.3)',
     padding: 20,
   },
   headerContainer: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     paddingVertical: 20,
-    color: '#7debeb',
+    color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   line: {
     borderWidth: 1,
-    borderColor: '#7debeb',
+    borderColor: '#186078',
   },
 });
 

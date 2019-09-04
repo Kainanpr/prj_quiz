@@ -7,17 +7,20 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 20,
+    paddingVertical: 150,
   },
   header: {
     backgroundColor: '#186078',
   },
   button: {
-    marginBottom: 10,
+    backgroundColor: '#186078',
+    marginBottom: 20,
+    borderRadius: 100,
     flex: 1,
   },
   buttonText: {
-    fontSize: 20,
-    color: '#989898',
+    fontSize: 25,
+    color: 'white',
   },
 });
 

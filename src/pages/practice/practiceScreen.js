@@ -39,7 +39,7 @@ class ChooseThemeScreen extends Component {
             <IconEntypo
               name="open-book"
               size={25}
-              color="#989898"
+              color="white"
             />
             <Text style={styles.buttonText}>Estude</Text>
           </Button>
@@ -47,7 +47,7 @@ class ChooseThemeScreen extends Component {
             <IconEntypo
               name="pencil"
               size={25}
-              color="#989898"
+              color="white"
             />
             <Text style={styles.buttonText}>Treine</Text>
           </Button>
@@ -55,7 +55,7 @@ class ChooseThemeScreen extends Component {
             <IconEntypo
               name="check"
               size={25}
-              color="#989898"
+              color="white"
             />
             <Text style={styles.buttonText}>Teste</Text>
           </Button>
