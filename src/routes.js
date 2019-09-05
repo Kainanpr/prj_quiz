@@ -15,6 +15,7 @@ import ProfileScreen from './pages/profile/profileScreen';
 import ChooseThemeScreen from './pages/chooseTheme/chooseThemeScreen';
 import PracticeScreen from './pages/practice/practiceScreen';
 import StudyScreen from './pages/study/studyScreen';
+import TestScreen from './pages/test/testScreen';
 import SideBar from './components/sideBar/sideBar';
 
 const SignInStack = createStackNavigator({
@@ -38,6 +39,7 @@ const HomeDrawer = createDrawerNavigator({
   StartingGameStack,
   Profile: { screen: ProfileScreen },
   Study: { screen: StudyScreen },
+  Test: { screen: TestScreen },
 }, {
   contentComponent: ({ navigation }) => <SideBar navigation={navigation} />,
 });

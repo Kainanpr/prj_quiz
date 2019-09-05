@@ -57,7 +57,13 @@ class ChooseThemeScreen extends Component {
             />
             <Text style={styles.buttonText}>Treine</Text>
           </Button>
-          <Button iconLeft block light style={styles.button}>
+          <Button
+            iconLeft
+            block
+            light
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate('Test', { practice: 'Teste' })}
+          >
             <IconEntypo
               name="check"
               size={25}
