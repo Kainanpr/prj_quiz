@@ -46,8 +46,7 @@ class ChooseThemeScreen extends Component {
   }
 
   handleContentPress = (item) => {
-    console.log(item);
-    this.props.navigation.navigate('Practice', item);
+    this.props.navigation.navigate('Practice', { content: item });
   }
 
   render() {

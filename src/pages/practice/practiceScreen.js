@@ -19,7 +19,7 @@ import styles from './styles';
 
 class ChooseThemeScreen extends Component {
   render() {
-    const themeName = this.props.navigation.getParam('name', {});
+    const theme = this.props.navigation.getParam('content', {});
 
     return (
       <Container style={styles.container}>
@@ -30,12 +30,18 @@ class ChooseThemeScreen extends Component {
             </Button>
           </Left>
           <Body style={{ flex: 4 }}>
-            <Title>{themeName}</Title>
+            <Title>{theme.name}</Title>
           </Body>
           <Right style={{ flex: 1 }} />
         </Header>
         <View style={styles.content}>
-          <Button iconLeft block light style={styles.button}>
+          <Button
+            iconLeft
+            block
+            light
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate('Study', { practice: 'Estude' })}
+          >
             <IconEntypo
               name="open-book"
               size={25}
