@@ -13,6 +13,8 @@ import SignUpScreen from './pages/signUp/signUpScreen';
 import HomeScreen from './pages/home/homeScreen';
 import ProfileScreen from './pages/profile/profileScreen';
 import ChooseThemeScreen from './pages/chooseTheme/chooseThemeScreen';
+import ChooseContentScreen from './pages/chooseContent/chooseContentScreen';
+import ChooseLevelsScreen from './pages/chooseLevels/chooseLevelsScreen';
 import PracticeScreen from './pages/practice/practiceScreen';
 import StudyScreen from './pages/study/studyScreen';
 import TestScreen from './pages/test/testScreen';
@@ -29,6 +31,8 @@ const SignInStack = createStackNavigator({
 const StartingGameStack = createStackNavigator({
   Home: { screen: HomeScreen },
   ChooseTheme: { screen: ChooseThemeScreen },
+  ChooseContent: { screen: ChooseContentScreen },
+  ChooseLevels: { screen: ChooseLevelsScreen },
   Practice: { screen: PracticeScreen },
 }, {
   initialRouteName: 'Home',

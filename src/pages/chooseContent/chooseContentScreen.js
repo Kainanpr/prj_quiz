@@ -1,46 +1,58 @@
-/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, ScrollView } from 'react-native';
 import {
-  Container, View,
-  Text,
+  Icon,
+  Button,
+  Container,
+  Body,
+  Tabs,
+  Tab,
+  ScrollableTab,
+  Header,
+  Title,
+  Left,
+  Right,
 } from 'native-base';
 
+import ChooseLevelsScreen from '../chooseLevels/chooseLevelsScreen';
 import styles from './styles';
 
+
 class ChooseContentScreen extends Component {
+  handleLevelPress = (level) => {
+    this.props.navigation.navigate('Practice', { level });
+  }
+
   render() {
-    const { contents } = this.props;
+    const theme = this.props.navigation.getParam('theme', {});
 
     return (
       <Container style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scroll}>
-          {contents.map((item) => (
-            <TouchableOpacity
-              key={item.id.toString()}
-              activeOpacity={0.6}
-              onPress={() => this.props.onContentPress(item)}
-            >
-              <View style={styles.containerCard}>
-                <Text style={styles.buttonText}>{item.name}</Text>
-              </View>
-            </TouchableOpacity>
+        <Header androidStatusBarColor="#186078" style={styles.header} hasTabs>
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>{theme.name}</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Tabs renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#186078' }} />}>
+          {theme.contents.map((item) => (
+            <Tab key={item.id.toString()} activeTabStyle={{ backgroundColor: '#186078' }} tabStyle={{ backgroundColor: '#186078' }} heading={item.name}>
+              <ChooseLevelsScreen onLevelPress={this.handleLevelPress} />
+            </Tab>
           ))}
-        </ScrollView>
+        </Tabs>
       </Container>
     );
   }
 }
 
 ChooseContentScreen.propTypes = {
-  contents: PropTypes.arrayOf(PropTypes.any),
-  onContentPress: PropTypes.func,
-};
-
-ChooseContentScreen.defaultProps = {
-  contents: [],
-  onContentPress: () => {},
+  navigation: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default ChooseContentScreen;

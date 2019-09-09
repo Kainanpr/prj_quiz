@@ -3,42 +3,43 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#dce2f2',
-    flex: 1,
   },
   content: {
+    backgroundColor: '#dce2f2',
     flex: 1,
-    padding: 20,
   },
   header: {
     backgroundColor: '#186078',
   },
-  containerLogo: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  logo: {
-    height: 200,
-    resizeMode: 'contain',
-  },
   text: {
-    fontFamily: 'Sans Serif',
-    fontSize: 25,
+    fontSize: 30,
     color: '#989898',
-    letterSpacing: -2,
     textAlign: 'center',
-    marginBottom: 30,
+    paddingVertical: 30,
+    letterSpacing: -1,
   },
   containerButton: {
     flex: 1,
   },
-  button: {
-    backgroundColor: '#186078',
+  buttonLocked: {
     height: '100%',
+    backgroundColor: 'white',
     flex: 1,
     marginHorizontal: 10,
     marginBottom: 15,
   },
-  buttonText: {
+  buttonUnlocked: {
+    height: '100%',
+    backgroundColor: '#a1bf67',
+    flex: 1,
+    marginHorizontal: 10,
+    marginBottom: 15,
+  },
+  buttonTextLocked: {
+    fontSize: 25,
+    color: '#989898',
+  },
+  buttonTextUnlocked: {
     fontSize: 25,
     color: 'white',
   },

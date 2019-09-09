@@ -5,21 +5,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#dce2f2',
     flex: 1,
   },
-  scroll: {
-    paddingVertical: 40,
-  },
-  containerCard: {
+  header: {
     backgroundColor: '#186078',
-    borderRadius: 40,
-    marginVertical: 5,
-    marginHorizontal: 10,
-    height: 150,
-    justifyContent: 'center',
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 25,
-    textAlign: 'center',
+  content: {
+    backgroundColor: '#dce2f2',
+    padding: 20,
+    flex: 1,
   },
 });
 

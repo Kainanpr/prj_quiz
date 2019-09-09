@@ -1,5 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
+import { Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Icon,
@@ -15,11 +16,12 @@ import {
 } from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
+import practiceImg from '../../assets/images/icon-practice-screen.png';
 import styles from './styles';
 
 class ChooseThemeScreen extends Component {
   render() {
-    const theme = this.props.navigation.getParam('content', {});
+    const level = this.props.navigation.getParam('level', {});
 
     return (
       <Container style={styles.container}>
@@ -30,47 +32,69 @@ class ChooseThemeScreen extends Component {
             </Button>
           </Left>
           <Body style={{ flex: 4 }}>
-            <Title>{theme.name}</Title>
+            <Title>{level}</Title>
           </Body>
           <Right style={{ flex: 1 }} />
         </Header>
         <View style={styles.content}>
-          <Button
-            iconLeft
-            block
-            light
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Study', { practice: 'Estude' })}
-          >
-            <IconEntypo
-              name="open-book"
-              size={25}
-              color="white"
+          <View style={styles.containerLogo}>
+            <Image
+              style={styles.logo}
+              source={practiceImg}
+              resizeMode="contain"
             />
-            <Text style={styles.buttonText}>Estude</Text>
-          </Button>
-          <Button iconLeft block light style={styles.button}>
-            <IconEntypo
-              name="pencil"
-              size={25}
-              color="white"
-            />
-            <Text style={styles.buttonText}>Treine</Text>
-          </Button>
-          <Button
-            iconLeft
-            block
-            light
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Test', { practice: 'Teste' })}
-          >
-            <IconEntypo
-              name="check"
-              size={25}
-              color="white"
-            />
-            <Text style={styles.buttonText}>Teste</Text>
-          </Button>
+            <Text style={styles.text}>O que você quer praticar hoje?</Text>
+          </View>
+          <View style={styles.containerButton}>
+            <Button
+              iconLeft
+              block
+              light
+              rounded
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate('Study', { practice: 'Estude' })}
+            >
+              <IconEntypo
+                name="open-book"
+                size={25}
+                color="white"
+              />
+              <Text style={styles.buttonText}>Estude</Text>
+            </Button>
+          </View>
+          <View style={styles.containerButton}>
+            <Button
+              iconLeft
+              block
+              light
+              rounded
+              style={styles.button}
+            >
+              <IconEntypo
+                name="pencil"
+                size={25}
+                color="white"
+              />
+              <Text style={styles.buttonText}>Treine</Text>
+            </Button>
+          </View>
+          <View style={styles.containerButton}>
+            <Button
+              iconLeft
+              block
+              light
+              rounded
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate('Test', { practice: 'Teste' })}
+            >
+              <IconEntypo
+                name="check"
+                size={25}
+                color="white"
+              />
+              <Text style={styles.buttonText}>Teste</Text>
+            </Button>
+          </View>
         </View>
       </Container>
     );
