@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Icon,
@@ -12,54 +14,157 @@ import {
   Right,
   View,
 } from 'native-base';
-import StepIndicator from 'react-native-step-indicator';
+import CardFlip from 'react-native-card-flip';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import styles from './styles';
 
-const firstIndicatorStyles = {
-  stepIndicatorSize: 30,
-  currentStepIndicatorSize: 40,
-  separatorStrokeWidth: 3,
-  currentStepStrokeWidth: 5,
-  separatorFinishedColor: '#186078',
-  separatorUnFinishedColor: '#90bccb',
-  stepStrokeCurrentColor: '#186078',
-  stepIndicatorFinishedColor: '#186078',
-  stepIndicatorUnFinishedColor: '#90bccb',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 15,
-  currentStepIndicatorLabelFontSize: 15,
-  stepIndicatorLabelCurrentColor: '#000000',
-  stepIndicatorLabelFinishedColor: '#ffffff',
-  stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
-  labelColor: '#666666',
-  labelSize: 12,
-  currentStepLabelColor: '#186078',
-};
-
 class StudyScreen extends Component {
   state = {
-    currentPage: 0,
+    study: [],
+    pageNumber: 1,
+    showInstruction: true,
   }
 
-  renderLabel = ({ position, label, currentPosition }) => (
-    <Text
-      style={
-          position === currentPosition
-            ? styles.stepLabelSelected
-            : styles.stepLabel
-        }
-    >
-      {label}
-    </Text>
-  )
+  componentDidMount() {
+    const study = [
+      {
+        id: 1,
+        word: 'Dent',
+        translation: 'Mossa',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 2,
+        word: 'Nicks',
+        translation: 'Cortes',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 3,
+        word: 'Scratches',
+        translation: 'Arranhões',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 4,
+        word: 'Cracks',
+        translation: 'Rachaduras',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 5,
+        word: 'Holes',
+        translation: 'Perfurações',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 6,
+        word: 'Abrasion',
+        translation: 'Abrasão',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 7,
+        word: 'Gouge',
+        translation: 'Ranhura',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 8,
+        word: 'Corrosion',
+        translation: 'Corrosão',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 9,
+        word: 'Delamination',
+        translation: 'Delaminação',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 10,
+        word: 'Disbond',
+        translation: 'Decolar',
+        contentId: 2,
+        levelId: 1,
+      },
+    ];
 
-  onStepPress = (position) => {
-    this.setState({ currentPage: position });
+    this.setState({
+      study,
+    });
+  }
+
+  previousCard = () => {
+    const { pageNumber } = this.state;
+
+    if (pageNumber > 1) {
+      this.setState({ pageNumber: pageNumber - 1 });
+    }
+  }
+
+  nextCard = () => {
+    const { pageNumber, study } = this.state;
+
+    if (pageNumber < study.length) {
+      this.setState({ pageNumber: pageNumber + 1 });
+    }
+  }
+
+  flipCard = () => {
+    const { showInstruction } = this.state;
+
+    if (showInstruction) {
+      this.setState({ showInstruction: false });
+    }
+
+    this.card.flip();
+  }
+
+  labelFront = () => {
+    const { study, pageNumber } = this.state;
+
+    if (!this.card) {
+      return '';
+    }
+
+    if (this.card.state.side === 0) {
+      return study.length !== 0 && study[pageNumber - 1].word;
+    }
+
+    return study.length !== 0 && study[pageNumber - 1].translation;
+  }
+
+  labelBehind = () => {
+    const { study, pageNumber } = this.state;
+
+    if (!this.card) {
+      return '';
+    }
+
+    if (this.card.state.side === 0) {
+      return study.length !== 0 && study[pageNumber - 1].translation;
+    }
+
+    return study.length !== 0 && study[pageNumber - 1].word;
   }
 
   render() {
+    const { study } = this.state;
+
     const practiceName = this.props.navigation.getParam('practice', {});
+    const pageTotal = study.length;
 
     return (
       <Container style={styles.container}>
@@ -75,39 +180,46 @@ class StudyScreen extends Component {
           <Right style={{ flex: 1 }} />
         </Header>
         <View style={styles.content}>
-          <View style={styles.stepIndicator}>
-            <StepIndicator
-              customStyles={firstIndicatorStyles}
-              currentPosition={this.state.currentPage}
-              stepCount={4}
-              labels={['Iniciante', 'Básico', 'Intermediário', 'Avançado']}
-              renderLabel={this.renderLabel}
-              onPress={this.onStepPress}
-            />
+          <CardFlip flipDirection="x" style={styles.cardContainer} ref={(card) => { this.card = card; }}>
+            <TouchableOpacity activeOpacity={1} style={[styles.card, styles.card1]} onPress={() => this.flipCard()}>
+              <Text style={styles.label}>{this.labelFront()}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={1} style={[styles.card, styles.card2]} onPress={() => this.flipCard()}>
+              <Text style={styles.label}>{this.labelBehind()}</Text>
+            </TouchableOpacity>
+          </CardFlip>
+          {this.state.showInstruction
+          && (
+            <View style={styles.containerInstruction}>
+              <Text style={styles.textInstruction}> Clique no cartão para ver o termo</Text>
+              <IconFontAwesome5 name="hand-point-up" size={20} color="#ffc83d" />
+            </View>
+          )}
+          <View style={styles.pagination}>
+            <Button
+              style={styles.paginationButton}
+              transparent
+              onPress={() => this.previousCard()}
+            >
+              <IconFontAwesome
+                name="arrow-left"
+                size={25}
+                color="#989898"
+              />
+            </Button>
+            <Text style={styles.paginationText}>{this.state.pageNumber}/{pageTotal}</Text>
+            <Button
+              style={styles.paginationButton}
+              transparent
+              onPress={() => this.nextCard()}
+            >
+              <IconFontAwesome
+                name="arrow-right"
+                size={25}
+                color="#989898"
+              />
+            </Button>
           </View>
-          {this.state.currentPage === 0 && (
-            <View style={styles.containerPage}>
-              <Text>Page 1</Text>
-            </View>
-          )}
-
-          {this.state.currentPage === 1 && (
-            <View style={styles.containerPage}>
-              <Text>Page 2</Text>
-            </View>
-          )}
-
-          {this.state.currentPage === 2 && (
-            <View style={styles.containerPage}>
-              <Text>Page 3</Text>
-            </View>
-          )}
-
-          {this.state.currentPage === 3 && (
-            <View style={styles.containerPage}>
-              <Text>Page 4</Text>
-            </View>
-          )}
         </View>
       </Container>
     );

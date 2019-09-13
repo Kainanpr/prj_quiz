@@ -7,25 +7,10 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    marginHorizontal: 20,
+    margin: 20,
   },
   header: {
     backgroundColor: '#186078',
-  },
-  stepIndicator: {
-    marginVertical: 50,
-  },
-  stepLabel: {
-    fontSize: 12,
-    textAlign: 'center',
-    fontWeight: '500',
-    color: '#999999',
-  },
-  stepLabelSelected: {
-    fontSize: 12,
-    textAlign: 'center',
-    fontWeight: '500',
-    color: '#186078',
   },
   containerPage: {
     flex: 1,

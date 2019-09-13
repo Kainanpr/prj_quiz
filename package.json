@@ -13,9 +13,9 @@
     "prop-types": "^15.7.2",
     "react": "16.8.6",
     "react-native": "0.60.5",
+    "react-native-card-flip": "^1.0.4",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-reanimated": "^1.2.0",
-    "react-native-step-indicator": "^0.0.11",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^3.12.0"
   },
