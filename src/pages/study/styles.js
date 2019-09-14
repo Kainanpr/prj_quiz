@@ -23,12 +23,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FE474C',
     borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   card1: {
     backgroundColor: 'white',

@@ -69,6 +69,7 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
+              onPress={() => this.props.navigation.navigate('Train', { practice: 'Treine' })}
             >
               <IconEntypo
                 name="pencil"

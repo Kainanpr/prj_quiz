@@ -17,6 +17,7 @@ import ChooseContentScreen from './pages/chooseContent/chooseContentScreen';
 import ChooseLevelsScreen from './pages/chooseLevels/chooseLevelsScreen';
 import PracticeScreen from './pages/practice/practiceScreen';
 import StudyScreen from './pages/study/studyScreen';
+import TrainScreen from './pages/train/trainScreen';
 import TestScreen from './pages/test/testScreen';
 import SideBar from './components/sideBar/sideBar';
 
@@ -43,6 +44,7 @@ const HomeDrawer = createDrawerNavigator({
   StartingGameStack,
   Profile: { screen: ProfileScreen },
   Study: { screen: StudyScreen },
+  Train: { screen: TrainScreen },
   Test: { screen: TestScreen },
 }, {
   contentComponent: ({ navigation }) => <SideBar navigation={navigation} />,
