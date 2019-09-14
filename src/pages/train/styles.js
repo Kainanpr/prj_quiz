@@ -76,6 +76,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 9,
   },
+  // Screen doNotKnow
+  textCopyAnswer: {
+    marginTop: 20,
+    paddingBottom: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ff725b',
+  },
+  textQuestionAndAnswer: {
+    marginTop: 20,
+    color: '#97a5aa',
+  },
+  containerWordDoNotKnow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: '#f1f1f1',
+  },
+  containerAnswerDoNotKnow: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;

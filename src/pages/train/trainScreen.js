@@ -15,6 +15,7 @@ import {
 } from 'native-base';
 
 import * as Progress from 'react-native-progress';
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 
 import styles from './styles';
 
@@ -23,6 +24,7 @@ class TrainScreen extends Component {
     remainder: '',
     incorrect: '',
     correct: '',
+    showAnswer: false,
   }
 
   render() {
@@ -85,26 +87,70 @@ class TrainScreen extends Component {
               </View>
             </View>
 
-            <View style={styles.containerCard}>
-              <View style={styles.containerWord}>
-                <Text style={styles.word}>CORTES</Text>
-                <TouchableOpacity>
-                  <Text style={styles.doNotKnow}>Não sei</Text>
-                </TouchableOpacity>
+            {!this.state.showAnswer ? (
+              <View style={styles.containerCard}>
+                <View style={styles.containerWord}>
+                  <Text style={styles.word}>CORTES</Text>
+                  <TouchableOpacity
+                    onPress={() => { this.setState({ showAnswer: true }); }}
+                  >
+                    <Text style={styles.doNotKnow}>Não sei</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.containerAnswer}>
+                  <TextInput
+                    style={styles.input}
+                    value={this.state.name}
+                    onChangeText={this.handleNameChange}
+                    underlineColorAndroid="transparent"
+                  />
+                  <TouchableOpacity style={styles.button}>
+                    <Text style={styles.textButton}>Responder</Text>
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.textInstruction}>INSIRA A RESPOSTA EM INGLÊS</Text>
               </View>
-              <View style={styles.containerAnswer}>
-                <TextInput
-                  style={styles.input}
-                  value={this.state.name}
-                  onChangeText={this.handleNameChange}
-                  underlineColorAndroid="transparent"
-                />
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.textButton}>Responder</Text>
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.textInstruction}>INSIRA A RESPOSTA EM INGLÊS</Text>
-            </View>
+            )
+              : (
+                <View style={styles.containerCard}>
+                  <Text style={styles.textCopyAnswer}>Copiar a resposta</Text>
+                  <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
+                  <View style={styles.containerWordDoNotKnow}>
+                    <Text>MOSSA</Text>
+                    <TouchableOpacity>
+                      <IconAntDesign
+                        name="sound"
+                        size={20}
+                        color="black"
+                        style={styles.inputIcon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
+                  <View style={styles.containerWordDoNotKnow}>
+                    <Text>Dent</Text>
+                    <TouchableOpacity>
+                      <IconAntDesign
+                        name="sound"
+                        size={20}
+                        color="black"
+                        style={styles.inputIcon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.containerAnswerDoNotKnow}>
+                    <TextInput
+                      style={styles.input}
+                      value={this.state.name}
+                      onChangeText={this.handleNameChange}
+                      underlineColorAndroid="transparent"
+                    />
+                  </View>
+                  <Text style={styles.textInstruction}>COPIAR A RESPOSTA</Text>
+                </View>
+              )}
+
+
           </View>
         </ScrollView>
       </Container>
