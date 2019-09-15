@@ -139,7 +139,7 @@ class TrainScreen extends Component {
                     <TouchableOpacity
                       onPress={() => {
                         Tts.stop();
-                        Tts.setDefaultLanguage('en-IE');
+                        Tts.setDefaultLanguage('en-US');
                         Tts.speak('Dent');
                       }}
                     >
