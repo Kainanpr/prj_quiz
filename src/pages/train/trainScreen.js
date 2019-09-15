@@ -16,6 +16,7 @@ import {
 
 import * as Progress from 'react-native-progress';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import Tts from 'react-native-tts';
 
 import styles from './styles';
 
@@ -117,7 +118,13 @@ class TrainScreen extends Component {
                   <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
                   <View style={styles.containerWordDoNotKnow}>
                     <Text>MOSSA</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        Tts.stop();
+                        Tts.setDefaultLanguage('pt-BR');
+                        Tts.speak('MOSSA');
+                      }}
+                    >
                       <IconAntDesign
                         name="sound"
                         size={20}
@@ -129,7 +136,13 @@ class TrainScreen extends Component {
                   <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
                   <View style={styles.containerWordDoNotKnow}>
                     <Text>Dent</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        Tts.stop();
+                        Tts.setDefaultLanguage('en-IE');
+                        Tts.speak('Dent');
+                      }}
+                    >
                       <IconAntDesign
                         name="sound"
                         size={20}
