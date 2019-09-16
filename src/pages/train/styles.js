@@ -49,9 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   containerAnswer: {
-    marginTop: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginTop: 20,
   },
   input: {
     flex: 1,
@@ -61,20 +59,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#455358',
   },
   button: {
-    marginLeft: 30,
     backgroundColor: '#3ccfcf',
+    padding: 20,
+    borderRadius: 50,
     justifyContent: 'center',
+    marginTop: 20,
   },
   textButton: {
+    textAlign: 'center',
     fontWeight: 'bold',
-    paddingHorizontal: 15,
     color: 'white',
-  },
-  textInstruction: {
-    marginTop: 5,
-    color: '#97a5aa',
-    fontWeight: 'bold',
-    fontSize: 9,
   },
   // Screen doNotKnow
   textCopyAnswer: {

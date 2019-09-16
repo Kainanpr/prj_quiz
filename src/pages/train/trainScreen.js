@@ -206,7 +206,7 @@ class TrainScreen extends Component {
           </Body>
           <Right style={{ flex: 1 }} />
         </Header>
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.content}>
             <View style={styles.containerAllProgress}>
               <View style={styles.containerProgress}>
@@ -263,6 +263,8 @@ class TrainScreen extends Component {
                 <View style={styles.containerAnswer}>
                   <TextInput
                     style={styles.input}
+                    placeholder="INSIRA A RESPOSTA EM INGLÊS"
+                    placeholderTextColor="rgba(0, 0, 0, 0.2)"
                     value={this.state.tryAnswer}
                     onChangeText={this.handleTryAnswerChange}
                     underlineColorAndroid="transparent"
@@ -274,7 +276,6 @@ class TrainScreen extends Component {
                     <Text style={styles.textButton}>Responder</Text>
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.textInstruction}>INSIRA A RESPOSTA EM INGLÊS</Text>
               </View>
             )
               : (
@@ -319,12 +320,13 @@ class TrainScreen extends Component {
                   <View style={styles.containerAnswerDoNotKnow}>
                     <TextInput
                       style={styles.input}
+                      placeholder="COPIAR A RESPOSTA"
+                      placeholderTextColor="rgba(0, 0, 0, 0.2)"
                       value={this.state.copyAnswer}
                       onChangeText={this.handleCopyAnswerChange}
                       underlineColorAndroid="transparent"
                     />
                   </View>
-                  <Text style={styles.textInstruction}>COPIAR A RESPOSTA</Text>
                 </View>
               )}
           </View>
