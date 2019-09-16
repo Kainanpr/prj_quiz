@@ -22,13 +22,175 @@ import styles from './styles';
 
 class TrainScreen extends Component {
   state = {
-    remainder: '',
-    incorrect: '',
-    correct: '',
+    study: [],
+    remainder: undefined,
+    incorrect: 0,
+    correct: 0,
     showAnswer: false,
+    tryAnswer: '',
+    copyAnswer: '',
+    word: '',
+    answer: '',
+    count: 0,
+  }
+
+  componentDidMount() {
+    const { count } = this.state;
+
+    const study = [
+      {
+        id: 1,
+        word: 'Dent',
+        translation: 'Mossa',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 2,
+        word: 'Nicks',
+        translation: 'Cortes',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 3,
+        word: 'Scratches',
+        translation: 'Arranhões',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 4,
+        word: 'Cracks',
+        translation: 'Rachaduras',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 5,
+        word: 'Holes',
+        translation: 'Perfurações',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 6,
+        word: 'Abrasion',
+        translation: 'Abrasão',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 7,
+        word: 'Gouge',
+        translation: 'Ranhura',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 8,
+        word: 'Corrosion',
+        translation: 'Corrosão',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 9,
+        word: 'Delamination',
+        translation: 'Delaminação',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 10,
+        word: 'Disbond',
+        translation: 'Decolar',
+        contentId: 2,
+        levelId: 1,
+      },
+    ];
+
+    this.setState({
+      study,
+      remainder: study.length,
+      word: study[count].translation,
+      answer: study[count].word,
+    });
+  }
+
+  handleDoNotKnowClick = () => {
+    const { incorrect, remainder } = this.state;
+
+    this.setState({
+      showAnswer: true,
+      incorrect: incorrect + 1,
+      remainder: remainder - 1,
+    });
+  }
+
+  handleTryAnswerChange = (input) => {
+    this.setState({
+      tryAnswer: input,
+    });
+  }
+
+  handleAnswerClick = () => {
+    const { study, answer, count, tryAnswer, correct, remainder } = this.state;
+    const nextIndex = count + 1;
+
+    if (tryAnswer.toLowerCase() === answer.toLowerCase()) {
+      if (nextIndex !== study.length) {
+        this.setState({
+          word: study[nextIndex].translation,
+          answer: study[nextIndex].word,
+          tryAnswer: '',
+          count: nextIndex,
+          correct: correct + 1,
+          remainder: remainder - 1,
+        });
+      } else {
+        this.setState({
+          word: '',
+          answer: '',
+          tryAnswer: '',
+          correct: correct + 1,
+          remainder: remainder - 1,
+        });
+      }
+    }
+  }
+
+  handleCopyAnswerChange = (input) => {
+    const { study, answer, count } = this.state;
+    const nextIndex = count + 1;
+
+    this.setState({
+      copyAnswer: input,
+    });
+
+    if (input.toLowerCase() === answer.toLowerCase()) {
+      if (nextIndex !== study.length) {
+        this.setState({
+          showAnswer: false,
+          word: study[nextIndex].translation,
+          answer: study[nextIndex].word,
+          copyAnswer: '',
+          count: nextIndex,
+        });
+      } else {
+        this.setState({
+          showAnswer: false,
+          word: '',
+          answer: '',
+          copyAnswer: '',
+        });
+      }
+    }
   }
 
   render() {
+    const { study, word, answer } = this.state;
+
     const practiceName = this.props.navigation.getParam('practice', {});
 
     return (
@@ -49,7 +211,7 @@ class TrainScreen extends Component {
             <View style={styles.containerAllProgress}>
               <View style={styles.containerProgress}>
                 <Progress.Bar
-                  progress={0.9}
+                  progress={study.length ? this.state.remainder / study.length : 1}
                   color="#4257b2"
                   unfilledColor="#c6cce8"
                   width={null}
@@ -57,12 +219,12 @@ class TrainScreen extends Component {
                 />
                 <View style={styles.textProgress}>
                   <Text>RESTANTES</Text>
-                  <Text>{2}</Text>
+                  <Text>{this.state.remainder}</Text>
                 </View>
               </View>
               <View style={styles.containerProgress}>
                 <Progress.Bar
-                  progress={0.5}
+                  progress={study.length && this.state.incorrect / study.length}
                   color="#ff725b"
                   unfilledColor="#ffd4cd"
                   width={null}
@@ -70,12 +232,12 @@ class TrainScreen extends Component {
                 />
                 <View style={styles.textProgress}>
                   <Text>INCORRETA</Text>
-                  <Text>{7}</Text>
+                  <Text>{this.state.incorrect}</Text>
                 </View>
               </View>
               <View style={styles.containerProgress}>
                 <Progress.Bar
-                  progress={0.1}
+                  progress={study.length && this.state.correct / study.length}
                   color="#23b26d"
                   unfilledColor="#bde8d3"
                   width={null}
@@ -83,7 +245,7 @@ class TrainScreen extends Component {
                 />
                 <View style={styles.textProgress}>
                   <Text>CORRETA</Text>
-                  <Text>{1}</Text>
+                  <Text>{this.state.correct}</Text>
                 </View>
               </View>
             </View>
@@ -91,9 +253,9 @@ class TrainScreen extends Component {
             {!this.state.showAnswer ? (
               <View style={styles.containerCard}>
                 <View style={styles.containerWord}>
-                  <Text style={styles.word}>CORTES</Text>
+                  <Text style={styles.word}>{word}</Text>
                   <TouchableOpacity
-                    onPress={() => { this.setState({ showAnswer: true }); }}
+                    onPress={() => this.handleDoNotKnowClick()}
                   >
                     <Text style={styles.doNotKnow}>Não sei</Text>
                   </TouchableOpacity>
@@ -101,11 +263,14 @@ class TrainScreen extends Component {
                 <View style={styles.containerAnswer}>
                   <TextInput
                     style={styles.input}
-                    value={this.state.name}
-                    onChangeText={this.handleNameChange}
+                    value={this.state.tryAnswer}
+                    onChangeText={this.handleTryAnswerChange}
                     underlineColorAndroid="transparent"
                   />
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.handleAnswerClick()}
+                  >
                     <Text style={styles.textButton}>Responder</Text>
                   </TouchableOpacity>
                 </View>
@@ -117,12 +282,12 @@ class TrainScreen extends Component {
                   <Text style={styles.textCopyAnswer}>Copiar a resposta</Text>
                   <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
                   <View style={styles.containerWordDoNotKnow}>
-                    <Text>MOSSA</Text>
+                    <Text>{word}</Text>
                     <TouchableOpacity
                       onPress={() => {
                         Tts.stop();
                         Tts.setDefaultLanguage('pt-BR');
-                        Tts.speak('MOSSA');
+                        Tts.speak(word);
                       }}
                     >
                       <IconAntDesign
@@ -135,12 +300,12 @@ class TrainScreen extends Component {
                   </View>
                   <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
                   <View style={styles.containerWordDoNotKnow}>
-                    <Text>Dent</Text>
+                    <Text>{answer}</Text>
                     <TouchableOpacity
                       onPress={() => {
                         Tts.stop();
                         Tts.setDefaultLanguage('en-US');
-                        Tts.speak('Dent');
+                        Tts.speak(answer);
                       }}
                     >
                       <IconAntDesign
@@ -154,16 +319,14 @@ class TrainScreen extends Component {
                   <View style={styles.containerAnswerDoNotKnow}>
                     <TextInput
                       style={styles.input}
-                      value={this.state.name}
-                      onChangeText={this.handleNameChange}
+                      value={this.state.copyAnswer}
+                      onChangeText={this.handleCopyAnswerChange}
                       underlineColorAndroid="transparent"
                     />
                   </View>
                   <Text style={styles.textInstruction}>COPIAR A RESPOSTA</Text>
                 </View>
               )}
-
-
           </View>
         </ScrollView>
       </Container>
