@@ -94,6 +94,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  // Screen correct
+  textCorrect: {
+    marginTop: 20,
+    paddingBottom: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#23b26d',
+  },
+  // Screen incorrect
+  textAnswer: {
+    color: '#23b26d',
+  },
+  textTryAnswer: {
+    color: '#ff725b',
+  },
 });
 
 export default styles;

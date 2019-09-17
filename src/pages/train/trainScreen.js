@@ -20,13 +20,20 @@ import Tts from 'react-native-tts';
 
 import styles from './styles';
 
+const SHOW_CONTENT = {
+  insertAnswer: 'INSERT_ANSWER',
+  correct: 'CORRECT',
+  incorrect: 'INCORRECT',
+  doNotKnow: 'DO_NOT_KNOW',
+};
+
 class TrainScreen extends Component {
   state = {
     study: [],
     remainder: undefined,
     incorrect: 0,
     correct: 0,
-    showAnswer: false,
+    showContent: SHOW_CONTENT.insertAnswer,
     tryAnswer: '',
     copyAnswer: '',
     word: '',
@@ -122,7 +129,7 @@ class TrainScreen extends Component {
     const { incorrect, remainder } = this.state;
 
     this.setState({
-      showAnswer: true,
+      showContent: SHOW_CONTENT.doNotKnow,
       incorrect: incorrect + 1,
       remainder: remainder - 1,
     });
@@ -135,16 +142,14 @@ class TrainScreen extends Component {
   }
 
   handleAnswerClick = () => {
-    const { study, answer, count, tryAnswer, correct, remainder } = this.state;
+    const { study, answer, count, tryAnswer, correct, incorrect, remainder } = this.state;
     const nextIndex = count + 1;
 
     if (tryAnswer.toLowerCase() === answer.toLowerCase()) {
       if (nextIndex !== study.length) {
         this.setState({
-          word: study[nextIndex].translation,
-          answer: study[nextIndex].word,
           tryAnswer: '',
-          count: nextIndex,
+          showContent: SHOW_CONTENT.correct,
           correct: correct + 1,
           remainder: remainder - 1,
         });
@@ -153,7 +158,24 @@ class TrainScreen extends Component {
           word: '',
           answer: '',
           tryAnswer: '',
+          showContent: SHOW_CONTENT.correct,
           correct: correct + 1,
+          remainder: remainder - 1,
+        });
+      }
+    } else if (tryAnswer) {
+      if (nextIndex !== study.length) {
+        this.setState({
+          showContent: SHOW_CONTENT.incorrect,
+          incorrect: incorrect + 1,
+          remainder: remainder - 1,
+        });
+      } else {
+        this.setState({
+          word: '',
+          answer: '',
+          showContent: SHOW_CONTENT.incorrect,
+          incorrect: incorrect + 1,
           remainder: remainder - 1,
         });
       }
@@ -171,25 +193,261 @@ class TrainScreen extends Component {
     if (input.toLowerCase() === answer.toLowerCase()) {
       if (nextIndex !== study.length) {
         this.setState({
-          showAnswer: false,
+          showContent: SHOW_CONTENT.insertAnswer,
           word: study[nextIndex].translation,
           answer: study[nextIndex].word,
+          tryAnswer: '',
           copyAnswer: '',
           count: nextIndex,
         });
       } else {
         this.setState({
-          showAnswer: false,
+          showContent: SHOW_CONTENT.insertAnswer,
           word: '',
           answer: '',
+          tryAnswer: '',
           copyAnswer: '',
         });
       }
     }
   }
 
+  showScreenInsertAnswer = () => (
+    <View style={styles.containerCard}>
+      <View style={styles.containerWord}>
+        <Text style={styles.word}>{this.state.word}</Text>
+        <TouchableOpacity
+          onPress={() => this.handleDoNotKnowClick()}
+        >
+          <Text style={styles.doNotKnow}>Não sei</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.containerAnswer}>
+        <TextInput
+          style={styles.input}
+          placeholder="INSIRA A RESPOSTA EM INGLÊS"
+          placeholderTextColor="rgba(0, 0, 0, 0.2)"
+          value={this.state.tryAnswer}
+          onChangeText={this.handleTryAnswerChange}
+          underlineColorAndroid="transparent"
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.handleAnswerClick()}
+        >
+          <Text style={styles.textButton}>Responder</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+
+  showScreenDoNotKnow = () => (
+    <View style={styles.containerCard}>
+      <Text style={styles.textCopyAnswer}>Copiar a resposta</Text>
+      <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text>{this.state.word}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Tts.stop();
+            Tts.setDefaultLanguage('pt-BR');
+            Tts.speak(this.state.word);
+          }}
+        >
+          <IconAntDesign
+            name="sound"
+            size={20}
+            color="black"
+            style={styles.inputIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text>{this.state.answer}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Tts.stop();
+            Tts.setDefaultLanguage('en-US');
+            Tts.speak(this.state.answer);
+          }}
+        >
+          <IconAntDesign
+            name="sound"
+            size={20}
+            color="black"
+            style={styles.inputIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.containerAnswerDoNotKnow}>
+        <TextInput
+          style={styles.input}
+          placeholder="COPIAR A RESPOSTA"
+          placeholderTextColor="rgba(0, 0, 0, 0.2)"
+          value={this.state.copyAnswer}
+          onChangeText={this.handleCopyAnswerChange}
+          underlineColorAndroid="transparent"
+        />
+      </View>
+    </View>
+  )
+
+  showScreenCorrect = () => (
+    <View style={styles.containerCard}>
+      <Text style={styles.textCorrect}>Correta</Text>
+      <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text>{this.state.word}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Tts.stop();
+            Tts.setDefaultLanguage('pt-BR');
+            Tts.speak(this.state.word);
+          }}
+        >
+          <IconAntDesign
+            name="sound"
+            size={20}
+            color="black"
+            style={styles.inputIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text>{this.state.answer}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Tts.stop();
+            Tts.setDefaultLanguage('en-US');
+            Tts.speak(this.state.answer);
+          }}
+        >
+          <IconAntDesign
+            name="sound"
+            size={20}
+            color="black"
+            style={styles.inputIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.containerAnswer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            const { study, count } = this.state;
+            const nextIndex = count + 1;
+
+            if (nextIndex !== study.length) {
+              this.setState({
+                showContent: SHOW_CONTENT.insertAnswer,
+                count: nextIndex,
+                word: study[nextIndex].translation,
+                answer: study[nextIndex].word,
+              });
+            }
+          }}
+        >
+          <Text style={styles.textButton}>Continuar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+
+  showScreenIncorrect = () => (
+    <View style={styles.containerCard}>
+      <Text style={styles.textCopyAnswer}>Incorreta</Text>
+      <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text>{this.state.word}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Tts.stop();
+            Tts.setDefaultLanguage('pt-BR');
+            Tts.speak(this.state.word);
+          }}
+        >
+          <IconAntDesign
+            name="sound"
+            size={20}
+            color="black"
+            style={styles.inputIcon}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <Text style={styles.textQuestionAndAnswer}>VOCÊ DISSE</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text style={styles.textTryAnswer}>{this.state.tryAnswer}</Text>
+      </View>
+
+      <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
+      <View style={styles.containerWordDoNotKnow}>
+        <Text style={styles.textAnswer}>{this.state.answer}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            Tts.stop();
+            Tts.setDefaultLanguage('en-US');
+            Tts.speak(this.state.answer);
+          }}
+        >
+          <IconAntDesign
+            name="sound"
+            size={20}
+            color="black"
+            style={styles.inputIcon}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.containerAnswer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            const { study, count } = this.state;
+            const nextIndex = count + 1;
+
+            if (nextIndex !== study.length) {
+              this.setState({
+                showContent: SHOW_CONTENT.insertAnswer,
+                count: nextIndex,
+                tryAnswer: '',
+                word: study[nextIndex].translation,
+                answer: study[nextIndex].word,
+              });
+            }
+          }}
+        >
+          <Text style={styles.textButton}>Continuar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+
+  chooseContent = () => {
+    const { showContent } = this.state;
+
+    if (showContent === SHOW_CONTENT.insertAnswer) {
+      return this.showScreenInsertAnswer();
+    }
+
+    if (showContent === SHOW_CONTENT.doNotKnow) {
+      return this.showScreenDoNotKnow();
+    }
+
+    if (showContent === SHOW_CONTENT.correct) {
+      return this.showScreenCorrect();
+    }
+
+    if (showContent === SHOW_CONTENT.incorrect) {
+      return this.showScreenIncorrect();
+    }
+
+    return '';
+  }
+
   render() {
-    const { study, word, answer } = this.state;
+    const { study } = this.state;
 
     const practiceName = this.props.navigation.getParam('practice', {});
 
@@ -249,86 +507,7 @@ class TrainScreen extends Component {
                 </View>
               </View>
             </View>
-
-            {!this.state.showAnswer ? (
-              <View style={styles.containerCard}>
-                <View style={styles.containerWord}>
-                  <Text style={styles.word}>{word}</Text>
-                  <TouchableOpacity
-                    onPress={() => this.handleDoNotKnowClick()}
-                  >
-                    <Text style={styles.doNotKnow}>Não sei</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.containerAnswer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="INSIRA A RESPOSTA EM INGLÊS"
-                    placeholderTextColor="rgba(0, 0, 0, 0.2)"
-                    value={this.state.tryAnswer}
-                    onChangeText={this.handleTryAnswerChange}
-                    underlineColorAndroid="transparent"
-                  />
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.handleAnswerClick()}
-                  >
-                    <Text style={styles.textButton}>Responder</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )
-              : (
-                <View style={styles.containerCard}>
-                  <Text style={styles.textCopyAnswer}>Copiar a resposta</Text>
-                  <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
-                  <View style={styles.containerWordDoNotKnow}>
-                    <Text>{word}</Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        Tts.stop();
-                        Tts.setDefaultLanguage('pt-BR');
-                        Tts.speak(word);
-                      }}
-                    >
-                      <IconAntDesign
-                        name="sound"
-                        size={20}
-                        color="black"
-                        style={styles.inputIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
-                  <View style={styles.containerWordDoNotKnow}>
-                    <Text>{answer}</Text>
-                    <TouchableOpacity
-                      onPress={() => {
-                        Tts.stop();
-                        Tts.setDefaultLanguage('en-US');
-                        Tts.speak(answer);
-                      }}
-                    >
-                      <IconAntDesign
-                        name="sound"
-                        size={20}
-                        color="black"
-                        style={styles.inputIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.containerAnswerDoNotKnow}>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="COPIAR A RESPOSTA"
-                      placeholderTextColor="rgba(0, 0, 0, 0.2)"
-                      value={this.state.copyAnswer}
-                      onChangeText={this.handleCopyAnswerChange}
-                      underlineColorAndroid="transparent"
-                    />
-                  </View>
-                </View>
-              )}
+            {this.chooseContent()}
           </View>
         </ScrollView>
       </Container>
