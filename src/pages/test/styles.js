@@ -36,6 +36,27 @@ const styles = StyleSheet.create({
   textOption: {
     marginLeft: 20,
   },
+  // Modal
+  containerModal: {
+    flex: 1,
+    justifyContent:
+    'center',
+    alignItems: 'center',
+  },
+  contentModal: {
+    backgroundColor: 'white',
+    padding: 100,
+    borderRadius: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  }
 });
 
 export default styles;

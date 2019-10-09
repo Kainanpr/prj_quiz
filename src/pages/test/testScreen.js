@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, ScrollView } from 'react-native';
+import { TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
 import {
   Icon,
   Button,
@@ -20,14 +20,181 @@ import styles from './styles';
 class TestScreen extends Component {
   state = {
     selectedOption: 1,
+    numberQuestion: 0,
+    questions: [],
+    currentQuestion: {},
+    wrongQuestions: [],
+    chosenAnswer: '',
+    modalVisible: false,
   }
 
-  toggleRadio = (option) => {
-    this.setState({ selectedOption: option });
+  componentDidMount() {
+    const questions = [
+      {
+        id: 1,
+        question: '(UFPB) The text suggests that in summer',
+        option1: 'people can have a good time.',
+        option2: 'everything is really perfect.',
+        option3: 'adolescents cannot swim.',
+        option4: 'everyone always has a cold.',
+        option5: 'nobody goes to the beach.',
+        answer: 'adolescents cannot swim.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 2,
+        question: '(UFPB) In the text, the sentence “It can burn your skin” means that the sun',
+        option1: 'is always bad for your skin.',
+        option2: 'can cause skin problems.',
+        option3: 'helps you have a beautiful skin.',
+        option4: 'is never hot.',
+        option5: 'cannot be dangerous',
+        answer: 'is always bad for your skin.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 3,
+        question: '(UFPB) The text suggests that scientists',
+        option1: 'found all kinds of dinosaurs in North America.',
+        option2: 'concluded that all dinosaurs made nests in the ground.',
+        option3: 'found out a herbivorous species of dinosaurs.',
+        option4: 'believed some dinosaurs lived alone.',
+        option5: 'discovered bird and crocodile fossils in North America.',
+        answer: 'believed some dinosaurs lived alone.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 4,
+        question: '(UFPB) The text suggests that in summer',
+        option1: 'people can have a good time.',
+        option2: 'everything is really perfect.',
+        option3: 'adolescents cannot swim.',
+        option4: 'everyone always has a cold.',
+        option5: 'nobody goes to the beach.',
+        answer: 'adolescents cannot swim.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 5,
+        question: '(UFPB) In the text, the sentence “It can burn your skin” means that the sun',
+        option1: 'is always bad for your skin.',
+        option2: 'can cause skin problems.',
+        option3: 'helps you have a beautiful skin.',
+        option4: 'is never hot.',
+        option5: 'cannot be dangerous',
+        answer: 'is always bad for your skin.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 6,
+        question: '(UFPB) The text suggests that scientists',
+        option1: 'found all kinds of dinosaurs in North America.',
+        option2: 'concluded that all dinosaurs made nests in the ground.',
+        option3: 'found out a herbivorous species of dinosaurs.',
+        option4: 'believed some dinosaurs lived alone.',
+        option5: 'discovered bird and crocodile fossils in North America.',
+        answer: 'believed some dinosaurs lived alone.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 7,
+        question: '(UFPB) The text suggests that in summer',
+        option1: 'people can have a good time.',
+        option2: 'everything is really perfect.',
+        option3: 'adolescents cannot swim.',
+        option4: 'everyone always has a cold.',
+        option5: 'nobody goes to the beach.',
+        answer: 'adolescents cannot swim.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 8,
+        question: '(UFPB) In the text, the sentence “It can burn your skin” means that the sun',
+        option1: 'is always bad for your skin.',
+        option2: 'can cause skin problems.',
+        option3: 'helps you have a beautiful skin.',
+        option4: 'is never hot.',
+        option5: 'cannot be dangerous',
+        answer: 'is always bad for your skin.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 9,
+        question: '(UFPB) The text suggests that scientists',
+        option1: 'found all kinds of dinosaurs in North America.',
+        option2: 'concluded that all dinosaurs made nests in the ground.',
+        option3: 'found out a herbivorous species of dinosaurs.',
+        option4: 'believed some dinosaurs lived alone.',
+        option5: 'discovered bird and crocodile fossils in North America.',
+        answer: 'believed some dinosaurs lived alone.',
+        contentId: 2,
+        levelId: 1,
+      },
+      {
+        id: 10,
+        question: '(UFPB) The text suggests that in summer',
+        option1: 'people can have a good time.',
+        option2: 'everything is really perfect.',
+        option3: 'adolescents cannot swim.',
+        option4: 'everyone always has a cold.',
+        option5: 'nobody goes to the beach.',
+        answer: 'adolescents cannot swim.',
+        contentId: 2,
+        levelId: 1,
+      },
+    ];
+
+    this.setState({
+      questions,
+      currentQuestion: questions[0],
+    });
+  }
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
+
+  toggleRadio = (option, chosenAnswer) => {
+    this.setState({
+      selectedOption: option,
+      chosenAnswer,
+    });
+  }
+
+  handleAnswer = () => {
+    const { questions, currentQuestion, chosenAnswer, wrongQuestions, numberQuestion } = this.state;
+
+    const nextNumberQuestion = numberQuestion + 1;
+
+    if (chosenAnswer !== currentQuestion.answer) {
+      this.setState({
+        wrongQuestions: [...wrongQuestions, currentQuestion.id],
+      });
+    }
+
+    if (nextNumberQuestion !== questions.length) {
+      this.setState({
+        currentQuestion: questions[nextNumberQuestion],
+        numberQuestion: nextNumberQuestion,
+        selectedOption: 1,
+      });
+    } else {
+      this.setModalVisible(true);
+    }
   }
 
   render() {
     const practiceName = this.props.navigation.getParam('practice', {});
+
+    console.log(this.state.wrongQuestions);
 
     return (
       <Container style={styles.container}>
@@ -43,86 +210,117 @@ class TestScreen extends Component {
           <Right style={{ flex: 1 }} />
         </Header>
         <ScrollView>
-          <View style={styles.content}>
-            <View style={styles.containerQuestion}>
-              <Text style={styles.textQuestion}>Question 1:</Text>
-              <Text>"Is it still raining there?" Yes, it _______ here __________ ten days.</Text>
-            </View>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.toggleRadio(1)}
-            >
-              <View
-                style={styles.containerOption}
-              >
-                <Radio
-                  selected={this.state.selectedOption === 1}
-                  onPress={() => this.toggleRadio(1)}
-                />
-                <Text style={styles.textOption}>is raining / since</Text>
+          {!this.state.modalVisible && (
+            <View style={styles.content}>
+              <View style={styles.containerQuestion}>
+                <Text style={styles.textQuestion}>Question {this.state.numberQuestion + 1}:</Text>
+                <Text>{this.state.currentQuestion.question}</Text>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.toggleRadio(2)}
-            >
-              <View
-                style={styles.containerOption}
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.toggleRadio(1, this.state.currentQuestion.option1)}
               >
-                <Radio
-                  selected={this.state.selectedOption === 2}
-                  onPress={() => this.toggleRadio(2)}
-                />
-                <Text style={styles.textOption}>has been rained / since</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.toggleRadio(3)}
-            >
-              <View
-                style={styles.containerOption}
+                <View
+                  style={styles.containerOption}
+                >
+                  <Radio
+                    selected={this.state.selectedOption === 1}
+                    onPress={() => this.toggleRadio(1, this.state.currentQuestion.option1)}
+                  />
+                  <Text style={styles.textOption}>{this.state.currentQuestion.option1}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.toggleRadio(2, this.state.currentQuestion.option2)}
               >
-                <Radio
-                  selected={this.state.selectedOption === 3}
-                  onPress={() => this.toggleRadio(3)}
-                />
-                <Text style={styles.textOption}>has being raining / for</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.toggleRadio(4)}
-            >
-              <View
-                style={styles.containerOption}
+                <View
+                  style={styles.containerOption}
+                >
+                  <Radio
+                    selected={this.state.selectedOption === 2}
+                    onPress={() => this.toggleRadio(2, this.state.currentQuestion.option2)}
+                  />
+                  <Text style={styles.textOption}>{this.state.currentQuestion.option2}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.toggleRadio(3, this.state.currentQuestion.option3)}
               >
-                <Radio
-                  selected={this.state.selectedOption === 4}
-                  onPress={() => this.toggleRadio(4)}
-                />
-                <Text style={styles.textOption}>has been raining / for</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={1}
-              onPress={() => this.toggleRadio(5)}
-            >
-              <View
-                style={styles.containerOption}
+                <View
+                  style={styles.containerOption}
+                >
+                  <Radio
+                    selected={this.state.selectedOption === 3}
+                    onPress={() => this.toggleRadio(3, this.state.currentQuestion.option3)}
+                  />
+                  <Text style={styles.textOption}>{this.state.currentQuestion.option3}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.toggleRadio(4, this.state.currentQuestion.option4)}
               >
-                <Radio
-                  selected={this.state.selectedOption === 5}
-                  onPress={() => this.toggleRadio(5)}
-                />
-                <Text style={styles.textOption}>has raining / for</Text>
-              </View>
-            </TouchableOpacity>
+                <View
+                  style={styles.containerOption}
+                >
+                  <Radio
+                    selected={this.state.selectedOption === 4}
+                    onPress={() => this.toggleRadio(4, this.state.currentQuestion.option4)}
+                  />
+                  <Text style={styles.textOption}>{this.state.currentQuestion.option4}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.toggleRadio(5, this.state.currentQuestion.option5)}
+              >
+                <View
+                  style={styles.containerOption}
+                >
+                  <Radio
+                    selected={this.state.selectedOption === 5}
+                    onPress={() => this.toggleRadio(5, this.state.currentQuestion.option5)}
+                  />
+                  <Text style={styles.textOption}>{this.state.currentQuestion.option5}</Text>
+                </View>
+              </TouchableOpacity>
 
-            <Button rounded block style={{ marginVertical: 20, backgroundColor: '#186078' }}>
-              <Text>Responder</Text>
-            </Button>
-          </View>
+              <Button
+                rounded
+                block
+                style={{ marginVertical: 20, backgroundColor: '#186078' }}
+                onPress={() => this.handleAnswer()}
+              >
+                <Text>Responder</Text>
+              </Button>
+            </View>
+          )}
+
+          <Modal
+            animationType="fade"
+            transparent
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+            }}
+          >
+            <View style={styles.containerModal}>
+              <View style={styles.contentModal}>
+                <Text>Hello World!</Text>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}
+                >
+                  <Text>Continuar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
         </ScrollView>
       </Container>
     );
