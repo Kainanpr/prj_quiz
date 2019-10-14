@@ -19,7 +19,7 @@ import styles from './styles';
 
 class TestScreen extends Component {
   state = {
-    selectedOption: 1,
+    selectedOption: undefined,
     numberQuestion: 0,
     questions: [],
     currentQuestion: {},
@@ -66,90 +66,6 @@ class TestScreen extends Component {
         contentId: 2,
         levelId: 1,
       },
-      {
-        id: 4,
-        question: '(UFPB) The text suggests that in summer',
-        option1: 'people can have a good time.',
-        option2: 'everything is really perfect.',
-        option3: 'adolescents cannot swim.',
-        option4: 'everyone always has a cold.',
-        option5: 'nobody goes to the beach.',
-        answer: 'adolescents cannot swim.',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 5,
-        question: '(UFPB) In the text, the sentence “It can burn your skin” means that the sun',
-        option1: 'is always bad for your skin.',
-        option2: 'can cause skin problems.',
-        option3: 'helps you have a beautiful skin.',
-        option4: 'is never hot.',
-        option5: 'cannot be dangerous',
-        answer: 'is always bad for your skin.',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 6,
-        question: '(UFPB) The text suggests that scientists',
-        option1: 'found all kinds of dinosaurs in North America.',
-        option2: 'concluded that all dinosaurs made nests in the ground.',
-        option3: 'found out a herbivorous species of dinosaurs.',
-        option4: 'believed some dinosaurs lived alone.',
-        option5: 'discovered bird and crocodile fossils in North America.',
-        answer: 'believed some dinosaurs lived alone.',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 7,
-        question: '(UFPB) The text suggests that in summer',
-        option1: 'people can have a good time.',
-        option2: 'everything is really perfect.',
-        option3: 'adolescents cannot swim.',
-        option4: 'everyone always has a cold.',
-        option5: 'nobody goes to the beach.',
-        answer: 'adolescents cannot swim.',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 8,
-        question: '(UFPB) In the text, the sentence “It can burn your skin” means that the sun',
-        option1: 'is always bad for your skin.',
-        option2: 'can cause skin problems.',
-        option3: 'helps you have a beautiful skin.',
-        option4: 'is never hot.',
-        option5: 'cannot be dangerous',
-        answer: 'is always bad for your skin.',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 9,
-        question: '(UFPB) The text suggests that scientists',
-        option1: 'found all kinds of dinosaurs in North America.',
-        option2: 'concluded that all dinosaurs made nests in the ground.',
-        option3: 'found out a herbivorous species of dinosaurs.',
-        option4: 'believed some dinosaurs lived alone.',
-        option5: 'discovered bird and crocodile fossils in North America.',
-        answer: 'believed some dinosaurs lived alone.',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 10,
-        question: '(UFPB) The text suggests that in summer',
-        option1: 'people can have a good time.',
-        option2: 'everything is really perfect.',
-        option3: 'adolescents cannot swim.',
-        option4: 'everyone always has a cold.',
-        option5: 'nobody goes to the beach.',
-        answer: 'adolescents cannot swim.',
-        contentId: 2,
-        levelId: 1,
-      },
     ];
 
     this.setState({
@@ -170,6 +86,10 @@ class TestScreen extends Component {
   }
 
   handleAnswer = () => {
+    if (!this.state.selectedOption) {
+      return;
+    }
+
     const { questions, currentQuestion, chosenAnswer, wrongQuestions, numberQuestion } = this.state;
 
     const nextNumberQuestion = numberQuestion + 1;
@@ -177,6 +97,8 @@ class TestScreen extends Component {
     if (chosenAnswer !== currentQuestion.answer) {
       this.setState({
         wrongQuestions: [...wrongQuestions, currentQuestion.id],
+      }, () => {
+        console.log(this.state.wrongQuestions);
       });
     }
 
@@ -184,17 +106,87 @@ class TestScreen extends Component {
       this.setState({
         currentQuestion: questions[nextNumberQuestion],
         numberQuestion: nextNumberQuestion,
-        selectedOption: 1,
+        selectedOption: undefined,
+      }, () => {
+        console.log(this.state.wrongQuestions);
       });
     } else {
-      this.setModalVisible(true);
+      this.setState({ modalVisible: true });
     }
+  }
+
+  passedLevel = () => {
+    const { questions } = this.state;
+
+    this.setState({
+      selectedOption: undefined,
+      numberQuestion: 0,
+      currentQuestion: questions[0],
+      wrongQuestions: [],
+      chosenAnswer: '',
+      modalVisible: false,
+    }, () => {
+      this.props.navigation.goBack();
+    });
+  }
+
+  remake = () => {
+    const { questions } = this.state;
+
+    this.setState({
+      selectedOption: undefined,
+      numberQuestion: 0,
+      currentQuestion: questions[0],
+      wrongQuestions: [],
+      chosenAnswer: '',
+      modalVisible: false,
+    });
+  }
+
+  showModal = () => {
+    const passedLevel = this.state.wrongQuestions.length === 0;
+
+    return (
+      <Modal
+        animationType="fade"
+        transparent
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}
+      >
+        <View style={styles.containerModal}>
+          <View style={styles.contentModal}>
+            <Text
+              style={passedLevel ? styles.textPassed : styles.textNotPassed}
+            >
+              {passedLevel
+                ? 'Parabéns, o próximo nível foi liberado!'
+                : 'Você precisa estudar mais!'}
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                if (passedLevel) {
+                  this.passedLevel();
+                } else {
+                  this.remake();
+                }
+              }}
+            >
+              <Text>
+                {passedLevel
+                  ? 'Continuar'
+                  : 'Refazer'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
   }
 
   render() {
     const practiceName = this.props.navigation.getParam('practice', {});
-
-    console.log(this.state.wrongQuestions);
 
     return (
       <Container style={styles.container}>
@@ -298,28 +290,7 @@ class TestScreen extends Component {
             </View>
           )}
 
-          <Modal
-            animationType="fade"
-            transparent
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-            }}
-          >
-            <View style={styles.containerModal}>
-              <View style={styles.contentModal}>
-                <Text>Hello World!</Text>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                  }}
-                >
-                  <Text>Continuar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
+          {this.showModal()}
 
         </ScrollView>
       </Container>

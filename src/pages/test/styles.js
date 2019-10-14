@@ -39,14 +39,15 @@ const styles = StyleSheet.create({
   // Modal
   containerModal: {
     flex: 1,
-    justifyContent:
-    'center',
-    alignItems: 'center',
   },
   contentModal: {
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'white',
-    padding: 100,
     borderRadius: 5,
+    flex: 1,
+    marginVertical: 100,
+    marginHorizontal: 40,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -54,9 +55,22 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
-  }
+  },
+  textPassed: {
+    textAlign: 'center',
+    fontSize: 20,
+    marginHorizontal: 10,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    color: '#23b26d',
+  },
+  textNotPassed: {
+    fontSize: 20,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    color: '#ff725b',
+  },
 });
 
 export default styles;

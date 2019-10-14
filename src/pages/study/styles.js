@@ -12,8 +12,6 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#186078',
   },
-
-
   cardContainer: {
     justifyContent: 'center',
     flex: 1,
