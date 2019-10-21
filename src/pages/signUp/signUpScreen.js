@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   ImageBackground,
   View,
@@ -10,6 +11,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 import backgroundImg from '../../assets/images/background-signin.jpg';
+
+import { create } from '../../services/user/userApi';
 
 class SignUpScreen extends Component {
   state = {
@@ -38,8 +41,15 @@ class SignUpScreen extends Component {
   handleSignUpPress = () => {
     const { name, email, password, passwordAgain } = this.state;
     const user = { name, email, password, passwordAgain };
-    console.log('Saving user: ', user);
+
+    if (password === passwordAgain) {
+      create(user, this.callbackCreate);
+    }
   };
+
+  callbackCreate = () => {
+    this.props.navigation.goBack();
+  }
 
   render() {
     return (
@@ -126,5 +136,9 @@ class SignUpScreen extends Component {
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default SignUpScreen;

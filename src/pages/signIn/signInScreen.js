@@ -11,7 +11,9 @@ import styles from './styles';
 import quizLogoImg from '../../assets/images/quiz_logo.png';
 import backgroundImg from '../../assets/images/background-signin.jpg';
 
-export default class SignIn extends Component {
+import { login } from '../../services/user/userApi';
+
+export default class SignInScreen extends Component {
   static navigationOptions = {
     header: null,
   };
@@ -19,6 +21,7 @@ export default class SignIn extends Component {
   state = {
     email: '',
     password: '',
+    error: false,
   };
 
   handleEmailChange = (email) => {
@@ -33,10 +36,25 @@ export default class SignIn extends Component {
     this.props.navigation.navigate('SignUp');
   };
 
-  handleSignInPress = async () => {
-    await AsyncStorage.setItem('userToken', 'Kainan');
-    this.props.navigation.navigate('Home');
+  handleSignInPress = () => {
+    const { email, password } = this.state;
+
+    const user = {
+      email,
+      password,
+    };
+
+    login(user, this.callbackSuccess, this.callbackError);
   };
+
+  callbackSuccess = async (response) => {
+    await AsyncStorage.setItem('userToken', JSON.stringify(response));
+    this.props.navigation.navigate('Home');
+  }
+
+  callbackError = () => {
+    this.setState({ error: true });
+  }
 
   handleSignUpPress = () => {
     this.props.navigation.navigate('SignUp');
@@ -63,7 +81,7 @@ export default class SignIn extends Component {
                 style={styles.inputIcon}
               />
               <TextInput
-                style={styles.input}
+                style={this.state.error ? styles.error : styles.input}
                 placeholder="E-mail"
                 placeholderTextColor="rgba(255, 255, 255, 0.7)"
                 value={this.state.email}
@@ -80,7 +98,7 @@ export default class SignIn extends Component {
                 style={styles.inputIcon}
               />
               <TextInput
-                style={styles.input}
+                style={this.state.error ? styles.error : styles.input}
                 placeholder="Senha"
                 placeholderTextColor="rgba(255, 255, 255, 0.7)"
                 value={this.state.password}
@@ -106,6 +124,6 @@ export default class SignIn extends Component {
   }
 }
 
-SignIn.propTypes = {
+SignInScreen.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.any).isRequired,
 };

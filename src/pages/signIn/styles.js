@@ -34,6 +34,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
   },
+  error: {
+    paddingHorizontal: 20,
+    paddingLeft: 45,
+    marginBottom: 15,
+    borderRadius: 100,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    fontSize: 16,
+    color: 'white',
+    borderColor: 'red',
+    borderWidth: 2,
+  },
   button: {
     padding: 20,
     borderRadius: 50,
