@@ -48,7 +48,7 @@ export default class SignInScreen extends Component {
   };
 
   callbackSuccess = async (response) => {
-    await AsyncStorage.setItem('userToken', JSON.stringify(response));
+    await AsyncStorage.setItem('userTokenJson', JSON.stringify(response));
     this.props.navigation.navigate('Home');
   }
 
