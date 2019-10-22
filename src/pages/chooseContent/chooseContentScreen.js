@@ -42,7 +42,7 @@ class ChooseContentScreen extends Component {
         <Tabs renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#186078' }} />}>
           {theme.contents.map((item) => (
             <Tab key={item.id.toString()} activeTabStyle={{ backgroundColor: '#186078' }} tabStyle={{ backgroundColor: '#186078' }} heading={item.name}>
-              <ChooseLevelsScreen onLevelPress={this.handleLevelPress} />
+              <ChooseLevelsScreen content={item} onLevelPress={this.handleLevelPress} />
             </Tab>
           ))}
         </Tabs>

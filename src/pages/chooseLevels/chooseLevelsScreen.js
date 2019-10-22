@@ -13,13 +13,29 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
 
+import { getGame } from '../../services/game/gameApi';
+
+
 class ChooseLevelsScreen extends Component {
   state = {
     level: 1,
   }
 
   componentDidMount() {
-    this.getUserToken();
+    this.fetchGame();
+  }
+
+  fetchGame = async () => {
+    const { content } = this.props;
+
+    const userTokenJson = await AsyncStorage.getItem('userToken');
+    const userToken = JSON.parse(userTokenJson);
+
+    getGame(userToken.id, content.id, this.callbackSucessGetGame);
+  }
+
+  callbackSucessGetGame = (level) => {
+    this.setState({ level });
   }
 
   getUserToken = async () => {
@@ -149,10 +165,12 @@ class ChooseLevelsScreen extends Component {
 }
 
 ChooseLevelsScreen.propTypes = {
+  content: PropTypes.objectOf(PropTypes.any),
   onLevelPress: PropTypes.func,
 };
 
 ChooseLevelsScreen.defaultProps = {
+  content: {},
   onLevelPress: () => {},
 };
 

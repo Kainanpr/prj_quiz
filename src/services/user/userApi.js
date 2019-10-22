@@ -23,10 +23,6 @@ const login = async (user, funcHomePage, funcError) => {
         id: response.data.id,
         name: response.data.name,
         email: response.data.email,
-        level: {
-          id: response.data.level.id,
-          name: response.data.level.name,
-        },
       };
       funcHomePage(responserUser);
     })
