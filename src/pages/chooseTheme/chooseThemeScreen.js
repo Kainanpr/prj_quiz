@@ -18,31 +18,24 @@ import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIc
 import quizLearningImg from '../../assets/images/learning.png';
 import styles from './styles';
 
+import { getThemes } from '../../services/theme/themeApi';
+
 class ChooseThemeScreen extends Component {
   state = {
     themes: [],
+    loading: true,
   }
 
   componentDidMount() {
-    const themes = [{
-      id: 1,
-      name: 'Vocabulário',
-      contents: [
-        { id: 1, name: 'Partes da Aeronave' },
-        { id: 2, name: 'Danos' },
-        { id: 3, name: 'Características Técnicas' },
-      ],
-    }, {
-      id: 2,
-      name: 'Gramática',
-      contents: [
-        { id: 1, name: 'Modais' },
-        { id: 2, name: 'Presente Simples' },
-        { id: 3, name: 'Elementos de Referência' },
-      ],
-    }];
+    this.fetchThemes();
+  }
 
-    this.setState({ themes });
+  fetchThemes = () => {
+    getThemes(this.callbackSucessGetThemes);
+  }
+
+  callbackSucessGetThemes = (themes) => {
+    this.setState({ themes, loading: false });
   }
 
   handleContentPress = (item) => {
@@ -81,7 +74,7 @@ class ChooseThemeScreen extends Component {
                 iconLeft
                 rounded
                 block
-                onPress={() => this.props.navigation.navigate('ChooseContent', { theme: themes[0] })}
+                onPress={() => !this.state.loading && this.props.navigation.navigate('ChooseContent', { theme: themes[0] })}
               >
                 <IconMaterialCommunity
                   name="airplane"
@@ -95,7 +88,7 @@ class ChooseThemeScreen extends Component {
                 iconLeft
                 rounded
                 block
-                onPress={() => this.props.navigation.navigate('ChooseContent', { theme: themes[1] })}
+                onPress={() => !this.state.loading && this.props.navigation.navigate('ChooseContent', { theme: themes[1] })}
               >
                 <IconMaterialCommunity
                   name="book-open-variant"
