@@ -32,7 +32,7 @@ class ChooseThemeScreen extends Component {
             </Button>
           </Left>
           <Body style={{ flex: 4 }}>
-            <Title>{level}</Title>
+            <Title>{level.name}</Title>
           </Body>
           <Right style={{ flex: 1 }} />
         </Header>
