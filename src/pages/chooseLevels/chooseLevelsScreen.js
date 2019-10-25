@@ -18,7 +18,7 @@ import { getGame } from '../../services/game/gameApi';
 
 class ChooseLevelsScreen extends Component {
   state = {
-    level: 1,
+    currentLevel: 1,
   }
 
   componentDidMount() {
@@ -34,12 +34,18 @@ class ChooseLevelsScreen extends Component {
     getGame(userToken.id, content.id, this.callbackSucessGetGame);
   }
 
-  callbackSucessGetGame = (level) => {
-    this.setState({ level });
+  callbackSucessGetGame = async (game) => {
+    await AsyncStorage.setItem('gameJson', JSON.stringify(game));
+    this.setState({ currentLevel: game.levelId });
+  }
+
+  handleLevelPress = (chosenLevel) => {
+    await AsyncStorage.setItem('chosenLevelJson', JSON.stringify(chosenLevel));
+    this.props.onLevelPress(chosenLevel)
   }
 
   render() {
-    const { level } = this.state;
+    const { currentLevel } = this.state;
 
     return (
       <Container style={styles.container}>
@@ -51,7 +57,7 @@ class ChooseLevelsScreen extends Component {
               iconLeft
               rounded
               block
-              onPress={() => this.props.onLevelPress({ id: 1, name: 'Iniciante' })}
+              onPress={this.handleLevelPress({ id: 1, name: 'Iniciante' })}
             >
               <IconEntypo
                 name="check"
@@ -63,14 +69,14 @@ class ChooseLevelsScreen extends Component {
           </View>
           <View style={styles.containerButton}>
             <Button
-              style={level > 1 && level <= 4 ? styles.buttonUnlocked : styles.buttonLocked}
+              style={currentLevel > 1 && currentLevel <= 4 ? styles.buttonUnlocked : styles.buttonLocked}
               iconLeft
               rounded
               block
-              disabled={!(level > 1 && level <= 4)}
-              onPress={() => this.props.onLevelPress({ id: 2, name: 'Básico' })}
+              disabled={!(currentLevel > 1 && currentLevel <= 4)}
+              onPress={this.handleLevelPress({ id: 2, name: 'Básico' })}
             >
-              {(level > 1 && level <= 4)
+              {(currentLevel > 1 && currentLevel <= 4)
                 ? (
                   <IconEntypo
                     name="check"
@@ -85,7 +91,7 @@ class ChooseLevelsScreen extends Component {
                     color="#989898"
                   />
                 )}
-              <Text style={level > 1 && level <= 4
+              <Text style={currentLevel > 1 && currentLevel <= 4
                 ? styles.buttonTextUnlocked : styles.buttonTextLocked}
               >
                 Básico
@@ -94,14 +100,14 @@ class ChooseLevelsScreen extends Component {
           </View>
           <View style={styles.containerButton}>
             <Button
-              style={level > 2 && level <= 4 ? styles.buttonUnlocked : styles.buttonLocked}
+              style={currentLevel > 2 && currentLevel <= 4 ? styles.buttonUnlocked : styles.buttonLocked}
               iconLeft
               rounded
               block
-              disabled={!(level > 2 && level <= 4)}
-              onPress={() => this.props.onLevelPress({ id: 3, name: 'Intermediário' })}
+              disabled={!(currentLevel > 2 && currentLevel <= 4)}
+              onPress={this.handleLevelPress({ id: 3, name: 'Intermediário' })}
             >
-              {(level > 2 && level <= 4)
+              {(currentLevel > 2 && currentLevel <= 4)
                 ? (
                   <IconEntypo
                     name="check"
@@ -116,7 +122,7 @@ class ChooseLevelsScreen extends Component {
                     color="#989898"
                   />
                 )}
-              <Text style={level > 2 && level <= 4
+              <Text style={currentLevel > 2 && currentLevel <= 4
                 ? styles.buttonTextUnlocked : styles.buttonTextLocked}
               >
                 Intermediário
@@ -125,14 +131,14 @@ class ChooseLevelsScreen extends Component {
           </View>
           <View style={styles.containerButton}>
             <Button
-              style={level === 4 ? styles.buttonUnlocked : styles.buttonLocked}
+              style={currentLevel === 4 ? styles.buttonUnlocked : styles.buttonLocked}
               iconLeft
               rounded
               block
-              disabled={!(level === 4)}
-              onPress={() => this.props.onLevelPress({ id: 4, name: 'Avançado' })}
+              disabled={!(currentLevel === 4)}
+              onPress={this.handleLevelPress({ id: 4, name: 'Avançado' })}
             >
-              {(level === 4)
+              {(currentLevel === 4)
                 ? (
                   <IconEntypo
                     name="check"
@@ -147,7 +153,7 @@ class ChooseLevelsScreen extends Component {
                     color="#989898"
                   />
                 )}
-              <Text style={level === 4
+              <Text style={currentLevel === 4
                 ? styles.buttonTextUnlocked : styles.buttonTextLocked}
               >
                 Avançado

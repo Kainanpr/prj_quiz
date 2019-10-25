@@ -19,8 +19,8 @@ import styles from './styles';
 
 
 class ChooseContentScreen extends Component {
-  handleLevelPress = (level) => {
-    this.props.navigation.navigate('Practice', { level });
+  handleLevelPress = (chosenLevel) => {
+    this.props.navigation.navigate('Practice', { chosenLevel });
   }
 
   render() {

@@ -21,7 +21,7 @@ import styles from './styles';
 
 class ChooseThemeScreen extends Component {
   render() {
-    const level = this.props.navigation.getParam('level', {});
+    const chosenLevel = this.props.navigation.getParam('chosenLevel', {});
 
     return (
       <Container style={styles.container}>
@@ -32,7 +32,7 @@ class ChooseThemeScreen extends Component {
             </Button>
           </Left>
           <Body style={{ flex: 4 }}>
-            <Title>{level.name}</Title>
+            <Title>{chosenLevel.name}</Title>
           </Body>
           <Right style={{ flex: 1 }} />
         </Header>
