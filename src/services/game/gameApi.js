@@ -17,7 +17,7 @@ const getGame = (userId, contentId, funcSucess) => {
 };
 
 const updateGame = (game, funcSucess) => {
-  api.put('/games/' + game.id, game)
+  api.put(`/games/${game.id}`, game)
     .then((response) => {
       funcSucess(response.data[0]);
     })

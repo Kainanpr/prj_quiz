@@ -37,6 +37,10 @@ class TestScreen extends Component {
     this.fetchTest();
   }
 
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
+
   fetchTest = async () => {
     const gameJson = await AsyncStorage.getItem('gameJson');
     const game = JSON.parse(gameJson);
@@ -52,10 +56,6 @@ class TestScreen extends Component {
       questions,
       currentQuestion: questions[0],
     });
-  }
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
   }
 
   toggleRadio = (option, chosenAnswer) => {

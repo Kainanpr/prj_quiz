@@ -39,9 +39,9 @@ class ChooseLevelsScreen extends Component {
     this.setState({ currentLevel: game.levelId });
   }
 
-  handleLevelPress = (chosenLevel) => {
+  handleLevelPress = async (chosenLevel) => {
     await AsyncStorage.setItem('chosenLevelJson', JSON.stringify(chosenLevel));
-    this.props.onLevelPress(chosenLevel)
+    this.props.onLevelPress(chosenLevel);
   }
 
   render() {
@@ -69,7 +69,8 @@ class ChooseLevelsScreen extends Component {
           </View>
           <View style={styles.containerButton}>
             <Button
-              style={currentLevel > 1 && currentLevel <= 4 ? styles.buttonUnlocked : styles.buttonLocked}
+              style={currentLevel > 1 && currentLevel <= 4
+                ? styles.buttonUnlocked : styles.buttonLocked}
               iconLeft
               rounded
               block
@@ -100,7 +101,8 @@ class ChooseLevelsScreen extends Component {
           </View>
           <View style={styles.containerButton}>
             <Button
-              style={currentLevel > 2 && currentLevel <= 4 ? styles.buttonUnlocked : styles.buttonLocked}
+              style={currentLevel > 2 && currentLevel <= 4
+                ? styles.buttonUnlocked : styles.buttonLocked}
               iconLeft
               rounded
               block
