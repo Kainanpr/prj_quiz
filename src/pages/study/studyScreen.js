@@ -42,7 +42,7 @@ class StudyScreen extends Component {
     const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
     const chosenLevel = JSON.parse(chosenLevelJson);
 
-    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetGame);
+    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
   }
 
   callbackSucessGetStudy = async (study) => {
