@@ -18,6 +18,8 @@ import CardFlip from 'react-native-card-flip';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+import { getStudy } from '../../services/study/studyApi';
+
 import styles from './styles';
 
 class StudyScreen extends Component {
@@ -104,6 +106,22 @@ class StudyScreen extends Component {
     this.setState({
       study,
     });
+
+    this.fetchStudy();
+  }
+
+  fetchStudy = async () => {
+    const gameJson = await AsyncStorage.getItem('gameJson');
+    const game = JSON.parse(gameJson);
+
+    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
+    const chosenLevel = JSON.parse(chosenLevelJson);
+
+    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetGame);
+  }
+
+  callbackSucessGetStudy = async (study) => {
+    this.setState({ study });
   }
 
   previousCard = () => {
