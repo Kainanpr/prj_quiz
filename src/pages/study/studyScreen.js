@@ -45,7 +45,7 @@ class StudyScreen extends Component {
     getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
   }
 
-  callbackSucessGetStudy = async (study) => {
+  callbackSucessGetStudy = (study) => {
     this.setState({ study });
   }
 

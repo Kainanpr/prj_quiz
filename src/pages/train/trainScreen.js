@@ -59,7 +59,7 @@ class TrainScreen extends Component {
     getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
   }
 
-  callbackSucessGetStudy = async (study) => {
+  callbackSucessGetStudy = (study) => {
     const { count } = this.state;
 
     this.setState({

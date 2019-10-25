@@ -16,7 +16,7 @@ const create = (user, funcBackPage) => {
     });
 };
 
-const login = async (user, funcHomePage, funcError) => {
+const login = (user, funcHomePage, funcError) => {
   api.post('/users/login', user)
     .then((response) => {
       const responserUser = {

@@ -18,6 +18,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { getTest } from '../../services/test/testApi';
+import { updateGame } from '../../services/game/gameApi';
 
 import styles from './styles';
 
@@ -46,7 +47,7 @@ class TestScreen extends Component {
     getTest(game.contentId, chosenLevel.id, this.callbackSucessGetTest);
   }
 
-  callbackSucessGetTest = async (questions) => {
+  callbackSucessGetTest = (questions) => {
     this.setState({
       questions,
       currentQuestion: questions[0],
@@ -94,8 +95,18 @@ class TestScreen extends Component {
     }
   }
 
-  passedLevel = () => {
+  passedLevel = async () => {
     const { questions } = this.state;
+
+    const gameJson = await AsyncStorage.getItem('gameJson');
+    const game = JSON.parse(gameJson);
+
+    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
+    const chosenLevel = JSON.parse(chosenLevelJson);
+
+    if (chosenLevel.id === game.levelId) {
+      updateGame({ ...game, levelId: chosenLevel.id + 1 }, this.callbackSucessUpdateGame);
+    }
 
     this.setState({
       selectedOption: undefined,
@@ -107,6 +118,10 @@ class TestScreen extends Component {
     }, () => {
       this.props.navigation.goBack();
     });
+  }
+
+  callbackSucessUpdateGame = async (newGame) => {
+    await AsyncStorage.setItem('gameJson', JSON.stringify(newGame));
   }
 
   remake = () => {
