@@ -18,6 +18,8 @@ import CardFlip from 'react-native-card-flip';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import { getStudy } from '../../services/study/studyApi';
 
 import styles from './styles';

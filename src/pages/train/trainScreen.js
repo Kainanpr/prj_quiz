@@ -18,6 +18,10 @@ import * as Progress from 'react-native-progress';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Tts from 'react-native-tts';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { getStudy } from '../../services/study/studyApi';
+
 import styles from './styles';
 
 const SHOW_CONTENT = {
@@ -42,80 +46,21 @@ class TrainScreen extends Component {
   }
 
   componentDidMount() {
-    const { count } = this.state;
+    this.fetchTrain();
+  }
 
-    const study = [
-      {
-        id: 1,
-        word: 'Dent',
-        translation: 'Mossa',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 2,
-        word: 'Nicks',
-        translation: 'Cortes',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 3,
-        word: 'Scratches',
-        translation: 'Arranhões',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 4,
-        word: 'Cracks',
-        translation: 'Rachaduras',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 5,
-        word: 'Holes',
-        translation: 'Perfurações',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 6,
-        word: 'Abrasion',
-        translation: 'Abrasão',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 7,
-        word: 'Gouge',
-        translation: 'Ranhura',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 8,
-        word: 'Corrosion',
-        translation: 'Corrosão',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 9,
-        word: 'Delamination',
-        translation: 'Delaminação',
-        contentId: 2,
-        levelId: 1,
-      },
-      {
-        id: 10,
-        word: 'Disbond',
-        translation: 'Decolar',
-        contentId: 2,
-        levelId: 1,
-      },
-    ];
+  fetchTrain = async () => {
+    const gameJson = await AsyncStorage.getItem('gameJson');
+    const game = JSON.parse(gameJson);
+
+    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
+    const chosenLevel = JSON.parse(chosenLevelJson);
+
+    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetGame);
+  }
+
+  callbackSucessGetStudy = async (study) => {
+    const { count } = this.state;
 
     this.setState({
       study,
