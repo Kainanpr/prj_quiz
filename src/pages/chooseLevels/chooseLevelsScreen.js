@@ -57,7 +57,7 @@ class ChooseLevelsScreen extends Component {
               iconLeft
               rounded
               block
-              onPress={this.handleLevelPress({ id: 1, name: 'Iniciante' })}
+              onPress={() => this.handleLevelPress({ id: 1, name: 'Iniciante' })}
             >
               <IconEntypo
                 name="check"
@@ -75,7 +75,7 @@ class ChooseLevelsScreen extends Component {
               rounded
               block
               disabled={!(currentLevel > 1 && currentLevel <= 4)}
-              onPress={this.handleLevelPress({ id: 2, name: 'Básico' })}
+              onPress={() => this.handleLevelPress({ id: 2, name: 'Básico' })}
             >
               {(currentLevel > 1 && currentLevel <= 4)
                 ? (
@@ -107,7 +107,7 @@ class ChooseLevelsScreen extends Component {
               rounded
               block
               disabled={!(currentLevel > 2 && currentLevel <= 4)}
-              onPress={this.handleLevelPress({ id: 3, name: 'Intermediário' })}
+              onPress={() => this.handleLevelPress({ id: 3, name: 'Intermediário' })}
             >
               {(currentLevel > 2 && currentLevel <= 4)
                 ? (
@@ -138,7 +138,7 @@ class ChooseLevelsScreen extends Component {
               rounded
               block
               disabled={!(currentLevel === 4)}
-              onPress={this.handleLevelPress({ id: 4, name: 'Avançado' })}
+              onPress={() => this.handleLevelPress({ id: 4, name: 'Avançado' })}
             >
               {(currentLevel === 4)
                 ? (

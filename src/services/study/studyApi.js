@@ -9,7 +9,7 @@ const api = axios.create({
 const getStudy = (contentId, levelId, funcSucess) => {
   api.get(`/studies?contentId=${contentId}&levelId=${levelId}`)
     .then((response) => {
-      funcSucess(response.data[0]);
+      funcSucess(response.data);
     })
     .catch((error) => {
       console.log(error);
