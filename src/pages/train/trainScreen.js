@@ -13,14 +13,11 @@ import {
   Right,
   View,
 } from 'native-base';
+import { NavigationEvents } from 'react-navigation';
 
 import * as Progress from 'react-native-progress';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Tts from 'react-native-tts';
-
-import AsyncStorage from '@react-native-community/async-storage';
-
-import { getStudy } from '../../services/study/studyApi';
 
 import styles from './styles';
 
@@ -45,28 +42,20 @@ class TrainScreen extends Component {
     count: 0,
   }
 
-  componentDidMount() {
-    this.fetchTrain();
-  }
-
-  fetchTrain = async () => {
-    const gameJson = await AsyncStorage.getItem('gameJson');
-    const game = JSON.parse(gameJson);
-
-    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
-    const chosenLevel = JSON.parse(chosenLevelJson);
-
-    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
-  }
-
-  callbackSucessGetStudy = (study) => {
-    const { count } = this.state;
+  setStudy() {
+    const study = this.props.navigation.getParam('study', {});
 
     this.setState({
       study,
       remainder: study.length,
-      word: study[count].translation,
-      answer: study[count].word,
+      word: study[0].translation,
+      answer: study[0].word,
+      incorrect: 0,
+      correct: 0,
+      showContent: SHOW_CONTENT.insertAnswer,
+      tryAnswer: '',
+      copyAnswer: '',
+      count: 0,
     });
   }
 
@@ -393,11 +382,13 @@ class TrainScreen extends Component {
 
   render() {
     const { study } = this.state;
+    console.log(this.state);
 
     const practiceName = this.props.navigation.getParam('practice', {});
 
     return (
       <Container style={styles.container}>
+        <NavigationEvents onWillFocus={() => { this.setStudy(); }} />
         <Header androidStatusBarColor="#186078" style={styles.header}>
           <Left style={{ flex: 1 }}>
             <Button transparent onPress={() => this.props.navigation.goBack()}>

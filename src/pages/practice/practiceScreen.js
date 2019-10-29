@@ -16,10 +16,53 @@ import {
 } from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { getStudy } from '../../services/study/studyApi';
+import { getTest } from '../../services/test/testApi';
+
 import practiceImg from '../../assets/images/icon-practice-screen.png';
 import styles from './styles';
 
 class ChooseThemeScreen extends Component {
+  state = {
+    study: [],
+    test: [],
+  }
+
+  componentDidMount() {
+    this.fetchStudy();
+    this.fetchTest();
+  }
+
+  fetchStudy = async () => {
+    const gameJson = await AsyncStorage.getItem('gameJson');
+    const game = JSON.parse(gameJson);
+
+    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
+    const chosenLevel = JSON.parse(chosenLevelJson);
+
+    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
+  }
+
+  callbackSucessGetStudy = (study) => {
+    this.setState({ study });
+  }
+
+  fetchTest = async () => {
+    const gameJson = await AsyncStorage.getItem('gameJson');
+    const game = JSON.parse(gameJson);
+
+    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
+    const chosenLevel = JSON.parse(chosenLevelJson);
+
+    getTest(game.contentId, chosenLevel.id, this.callbackSucessGetTest);
+  }
+
+  callbackSucessGetTest = (test) => {
+    this.setState({ test });
+  }
+
   render() {
     const chosenLevel = this.props.navigation.getParam('chosenLevel', {});
 
@@ -52,7 +95,7 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Study', { practice: 'Estude' })}
+              onPress={() => this.props.navigation.navigate('Study', { study: this.state.study, practice: 'Estude' })}
             >
               <IconEntypo
                 name="open-book"
@@ -69,7 +112,7 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Train', { practice: 'Treine' })}
+              onPress={() => this.props.navigation.navigate('Train', { study: this.state.study, practice: 'Treine' })}
             >
               <IconEntypo
                 name="pencil"
@@ -86,7 +129,7 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Test', { practice: 'Teste' })}
+              onPress={() => this.props.navigation.navigate('Test', { questions: this.state.test, practice: 'Teste' })}
             >
               <IconEntypo
                 name="check"

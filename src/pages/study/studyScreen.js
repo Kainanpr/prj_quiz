@@ -17,10 +17,7 @@ import {
 import CardFlip from 'react-native-card-flip';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-import AsyncStorage from '@react-native-community/async-storage';
-
-import { getStudy } from '../../services/study/studyApi';
+import { NavigationEvents } from 'react-navigation';
 
 import styles from './styles';
 
@@ -31,22 +28,13 @@ class StudyScreen extends Component {
     showInstruction: true,
   }
 
-  componentDidMount() {
-    this.fetchStudy();
-  }
-
-  fetchStudy = async () => {
-    const gameJson = await AsyncStorage.getItem('gameJson');
-    const game = JSON.parse(gameJson);
-
-    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
-    const chosenLevel = JSON.parse(chosenLevelJson);
-
-    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
-  }
-
-  callbackSucessGetStudy = (study) => {
-    this.setState({ study });
+  setStudy() {
+    const study = this.props.navigation.getParam('study', {});
+    this.setState({
+      study,
+      pageNumber: 1,
+      showInstruction: true,
+    });
   }
 
   previousCard = () => {
@@ -111,6 +99,7 @@ class StudyScreen extends Component {
 
     return (
       <Container style={styles.container}>
+        <NavigationEvents onWillFocus={() => { this.setStudy(); }} />
         <Header androidStatusBarColor="#186078" style={styles.header}>
           <Left style={{ flex: 1 }}>
             <Button transparent onPress={() => this.props.navigation.goBack()}>

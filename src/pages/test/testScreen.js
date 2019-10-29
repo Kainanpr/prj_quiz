@@ -17,7 +17,8 @@ import {
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { getTest } from '../../services/test/testApi';
+import { NavigationEvents } from 'react-navigation';
+
 import { updateGame } from '../../services/game/gameApi';
 
 import styles from './styles';
@@ -33,29 +34,22 @@ class TestScreen extends Component {
     modalVisible: false,
   }
 
-  componentDidMount() {
-    this.fetchTest();
+  setQuestions() {
+    const questions = this.props.navigation.getParam('questions', {});
+
+    this.setState({
+      questions,
+      currentQuestion: questions[0],
+      selectedOption: undefined,
+      numberQuestion: 0,
+      wrongQuestions: [],
+      chosenAnswer: '',
+      modalVisible: false,
+    });
   }
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
-  }
-
-  fetchTest = async () => {
-    const gameJson = await AsyncStorage.getItem('gameJson');
-    const game = JSON.parse(gameJson);
-
-    const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
-    const chosenLevel = JSON.parse(chosenLevelJson);
-
-    getTest(game.contentId, chosenLevel.id, this.callbackSucessGetTest);
-  }
-
-  callbackSucessGetTest = (questions) => {
-    this.setState({
-      questions,
-      currentQuestion: questions[0],
-    });
   }
 
   toggleRadio = (option, chosenAnswer) => {
@@ -184,6 +178,7 @@ class TestScreen extends Component {
 
     return (
       <Container style={styles.container}>
+        <NavigationEvents onWillFocus={() => { this.setQuestions(); }} />
         <Header androidStatusBarColor="#186078" style={styles.header}>
           <Left style={{ flex: 1 }}>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
