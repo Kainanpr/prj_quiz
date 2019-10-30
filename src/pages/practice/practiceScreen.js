@@ -65,12 +65,19 @@ class ChooseThemeScreen extends Component {
 
   render() {
     const chosenLevel = this.props.navigation.getParam('chosenLevel', {});
+    const onReturnedToLevelPage = this.props.navigation.getParam('onReturnedToLevelPage', () => {});
 
     return (
       <Container style={styles.container}>
         <Header androidStatusBarColor="#186078" style={styles.header}>
           <Left style={{ flex: 1 }}>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
+            <Button
+              transparent
+              onPress={() => {
+                onReturnedToLevelPage(true);
+                this.props.navigation.goBack();
+              }}
+            >
               <Icon name="arrow-back" />
             </Button>
           </Left>

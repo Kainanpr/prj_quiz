@@ -19,10 +19,22 @@ import { getGame } from '../../services/game/gameApi';
 class ChooseLevelsScreen extends Component {
   state = {
     currentLevel: 1,
+    returnedToThisPage: false,
   }
 
   componentDidMount() {
     this.fetchGame();
+  }
+
+  componentDidUpdate() {
+    if (this.state.returnedToThisPage) {
+      this.handleReturnedToThisPage(false);
+      this.fetchGame();
+    }
+  }
+
+  handleReturnedToThisPage = (returnedToThisPage) => {
+    this.setState({ returnedToThisPage });
   }
 
   fetchGame = async () => {
@@ -41,7 +53,7 @@ class ChooseLevelsScreen extends Component {
 
   handleLevelPress = async (chosenLevel) => {
     await AsyncStorage.setItem('chosenLevelJson', JSON.stringify(chosenLevel));
-    this.props.onLevelPress(chosenLevel);
+    this.props.onLevelPress(chosenLevel, this.handleReturnedToThisPage);
   }
 
   render() {
