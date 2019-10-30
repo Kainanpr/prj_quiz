@@ -89,8 +89,6 @@ class TrainScreen extends Component {
         });
       } else {
         this.setState({
-          word: '',
-          answer: '',
           tryAnswer: '',
           showContent: SHOW_CONTENT.correct,
           correct: correct + 1,
@@ -106,8 +104,6 @@ class TrainScreen extends Component {
         });
       } else {
         this.setState({
-          word: '',
-          answer: '',
           showContent: SHOW_CONTENT.incorrect,
           incorrect: incorrect + 1,
           remainder: remainder - 1,
@@ -135,13 +131,7 @@ class TrainScreen extends Component {
           count: nextIndex,
         });
       } else {
-        this.setState({
-          showContent: SHOW_CONTENT.insertAnswer,
-          word: '',
-          answer: '',
-          tryAnswer: '',
-          copyAnswer: '',
-        });
+        this.setStudy();
       }
     }
   }
@@ -217,7 +207,7 @@ class TrainScreen extends Component {
       <View style={styles.containerAnswerDoNotKnow}>
         <TextInput
           style={styles.input}
-          placeholder="COPIAR A RESPOSTA"
+          placeholder={this.state.count + 1 !== this.state.study.length ? 'COPIAR A RESPOSTA' : 'COPIAR A RESPOSTA PARA REFAZER'}
           placeholderTextColor="rgba(0, 0, 0, 0.2)"
           value={this.state.copyAnswer}
           onChangeText={this.handleCopyAnswerChange}
@@ -280,10 +270,14 @@ class TrainScreen extends Component {
                 word: study[nextIndex].translation,
                 answer: study[nextIndex].word,
               });
+            } else {
+              this.setStudy();
             }
           }}
         >
-          <Text style={styles.textButton}>Continuar</Text>
+          <Text style={styles.textButton}>
+            {this.state.count + 1 !== this.state.study.length ? 'Continuar' : 'Refazer'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -349,10 +343,14 @@ class TrainScreen extends Component {
                 word: study[nextIndex].translation,
                 answer: study[nextIndex].word,
               });
+            } else {
+              this.setStudy();
             }
           }}
         >
-          <Text style={styles.textButton}>Continuar</Text>
+          <Text style={styles.textButton}>
+            {this.state.count + 1 !== this.state.study.length ? 'Continuar' : 'Refazer'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -382,7 +380,6 @@ class TrainScreen extends Component {
 
   render() {
     const { study } = this.state;
-    console.log(this.state);
 
     const practiceName = this.props.navigation.getParam('practice', {});
 
