@@ -132,7 +132,9 @@ class TestScreen extends Component {
   }
 
   showModal = () => {
-    const passedLevel = this.state.wrongQuestions.length === 0;
+    const { wrongQuestions } = this.state;
+
+    const passedLevel = wrongQuestions.length === 0;
 
     return (
       <Modal
@@ -150,7 +152,7 @@ class TestScreen extends Component {
             >
               {passedLevel
                 ? 'Parabéns, o próximo nível foi liberado!'
-                : 'Você precisa estudar mais!'}
+                : `Você errou ${wrongQuestions.length} ${wrongQuestions.length === 1 ? 'questão' : 'questões'}!`}
             </Text>
             <TouchableOpacity
               onPress={() => {
