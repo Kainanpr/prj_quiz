@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   // Modal
   containerModal: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   contentModal: {
     justifyContent: 'center',

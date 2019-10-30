@@ -6,6 +6,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Modal,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -20,7 +22,12 @@ class SignUpScreen extends Component {
     email: '',
     password: '',
     passwordAgain: '',
+    modalVisible: false,
   };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
 
   handleNameChange = (name) => {
     this.setState({ name });
@@ -48,7 +55,34 @@ class SignUpScreen extends Component {
   };
 
   callbackCreate = () => {
-    this.props.navigation.goBack();
+    this.setModalVisible(true);
+  }
+
+  showModal = () => {
+    return (
+      <Modal
+        animationType="fade"
+        transparent
+        visible={this.state.modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}
+      >
+        <View style={styles.containerModal}>
+          <View style={styles.contentModal}>
+            <Text style={styles.textSuccess}>Usuário cadastrado com sucesso!</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.setModalVisible(false);
+                this.props.navigation.goBack();
+              }}
+            >
+              <Text>Continuar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
   }
 
   render() {
@@ -132,6 +166,9 @@ class SignUpScreen extends Component {
             </TouchableOpacity>
           </View>
         </View>
+
+        {this.showModal()}
+
       </ImageBackground>
     );
   }
