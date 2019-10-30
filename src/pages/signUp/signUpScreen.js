@@ -58,32 +58,30 @@ class SignUpScreen extends Component {
     this.setModalVisible(true);
   }
 
-  showModal = () => {
-    return (
-      <Modal
-        animationType="fade"
-        transparent
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
-        <View style={styles.containerModal}>
-          <View style={styles.contentModal}>
-            <Text style={styles.textSuccess}>Usuário cadastrado com sucesso!</Text>
-            <TouchableOpacity
-              onPress={() => {
-                this.setModalVisible(false);
-                this.props.navigation.goBack();
-              }}
-            >
-              <Text>Continuar</Text>
-            </TouchableOpacity>
-          </View>
+  showModal = () => (
+    <Modal
+      animationType="fade"
+      transparent
+      visible={this.state.modalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+      }}
+    >
+      <View style={styles.containerModal}>
+        <View style={styles.contentModal}>
+          <Text style={styles.textSuccess}>Usuário cadastrado com sucesso!</Text>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(false);
+              this.props.navigation.goBack();
+            }}
+          >
+            <Text>Continuar</Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
-    );
-  }
+      </View>
+    </Modal>
+  )
 
   render() {
     return (
