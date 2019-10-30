@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { red } from 'ansi-colors';
 
 const styles = StyleSheet.create({
   imageBackgroundContainer: {
@@ -31,6 +30,13 @@ const styles = StyleSheet.create({
     color: 'white',
     borderBottomWidth: 1,
     borderBottomColor: 'white',
+    paddingLeft: 50,
+  },
+  differentPasswords: {
+    fontSize: 16,
+    color: 'white',
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
     paddingLeft: 50,
   },
   inputIcon: {

@@ -23,6 +23,7 @@ class SignUpScreen extends Component {
     password: '',
     passwordAgain: '',
     modalVisible: false,
+    differentPasswords: false,
   };
 
   setModalVisible(visible) {
@@ -51,6 +52,8 @@ class SignUpScreen extends Component {
 
     if (password === passwordAgain) {
       create(user, this.callbackCreate);
+    } else {
+      this.setState({ differentPasswords: true });
     }
   };
 
@@ -133,7 +136,7 @@ class SignUpScreen extends Component {
                 style={styles.inputIcon}
               />
               <TextInput
-                style={styles.input}
+                style={this.state.differentPasswords ? styles.differentPasswords : styles.input}
                 value={this.state.password}
                 onChangeText={this.handlePasswordChange}
                 placeholder="Senha"
@@ -150,7 +153,7 @@ class SignUpScreen extends Component {
                 style={styles.inputIcon}
               />
               <TextInput
-                style={styles.input}
+                style={this.state.differentPasswords ? styles.differentPasswords : styles.input}
                 value={this.state.passwordAgain}
                 onChangeText={this.handlePasswordAgainChange}
                 placeholder="Insira a senha novamente"
