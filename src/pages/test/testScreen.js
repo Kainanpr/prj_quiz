@@ -14,6 +14,7 @@ import {
   View,
   Radio,
 } from 'native-base';
+import * as Progress from 'react-native-progress';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -25,6 +26,7 @@ import styles from './styles';
 
 class TestScreen extends Component {
   state = {
+    remainder: undefined,
     selectedOption: undefined,
     numberQuestion: 0,
     questions: [],
@@ -38,6 +40,7 @@ class TestScreen extends Component {
     const questions = this.props.navigation.getParam('questions', {});
 
     this.setState({
+      remainder: questions.length,
       questions,
       currentQuestion: questions[0],
       selectedOption: undefined,
@@ -64,13 +67,16 @@ class TestScreen extends Component {
       return;
     }
 
-    const { questions, currentQuestion, chosenAnswer, wrongQuestions, numberQuestion } = this.state;
+    const {
+      questions, currentQuestion, chosenAnswer, wrongQuestions, numberQuestion, remainder,
+    } = this.state;
 
     const nextNumberQuestion = numberQuestion + 1;
 
     if (chosenAnswer !== currentQuestion.answer) {
       this.setState({
         wrongQuestions: [...wrongQuestions, currentQuestion.id],
+        remainder: remainder - 1,
       }, () => {
         console.log(this.state.wrongQuestions);
       });
@@ -81,6 +87,7 @@ class TestScreen extends Component {
         currentQuestion: questions[nextNumberQuestion],
         numberQuestion: nextNumberQuestion,
         selectedOption: undefined,
+        remainder: remainder - 1,
       }, () => {
         console.log(this.state.wrongQuestions);
       });
@@ -122,6 +129,7 @@ class TestScreen extends Component {
     const { questions } = this.state;
 
     this.setState({
+      remainder: questions.length,
       selectedOption: undefined,
       numberQuestion: 0,
       currentQuestion: questions[0],
@@ -195,6 +203,20 @@ class TestScreen extends Component {
         <ScrollView>
           {!this.state.modalVisible && (
             <View style={styles.content}>
+              <View style={styles.containerProgress}>
+                <Progress.Bar
+                  progress={this.state.questions.length
+                    ? this.state.remainder / this.state.questions.length : 1}
+                  color="#4257b2"
+                  unfilledColor="#c6cce8"
+                  width={null}
+                  // borderWidth={0}
+                />
+                <View style={styles.textProgress}>
+                  <Text>RESTANTES</Text>
+                  <Text>{this.state.remainder}</Text>
+                </View>
+              </View>
               <View style={styles.containerQuestion}>
                 <Text style={styles.textQuestion}>Question {this.state.numberQuestion + 1}:</Text>
                 <Text>{this.state.currentQuestion.question}</Text>

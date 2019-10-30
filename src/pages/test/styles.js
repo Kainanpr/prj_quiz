@@ -72,6 +72,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ff725b',
   },
+  // Progress
+  containerProgress: {
+    marginBottom: 30,
+  },
+  textProgress: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;
