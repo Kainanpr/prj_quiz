@@ -19,6 +19,14 @@ import styles from './styles';
 
 
 class ChooseContentScreen extends Component {
+  state = {
+    tabChanged: false,
+  }
+
+  handleTabChange = (tabChanged) => {
+    this.setState({ tabChanged });
+  }
+
   handleLevelPress = (chosenLevel, onReturnedToLevelPage) => {
     this.props.navigation.navigate('Practice', { chosenLevel, onReturnedToLevelPage });
   }
@@ -39,10 +47,15 @@ class ChooseContentScreen extends Component {
           </Body>
           <Right />
         </Header>
-        <Tabs renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#186078' }} />}>
+        <Tabs onChangeTab={() => { this.handleTabChange(true); }} renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#186078' }} />}>
           {theme.contents.map((item) => (
             <Tab key={item.id.toString()} activeTabStyle={{ backgroundColor: '#186078' }} tabStyle={{ backgroundColor: '#186078' }} heading={item.name}>
-              <ChooseLevelsScreen content={item} onLevelPress={this.handleLevelPress} />
+              <ChooseLevelsScreen
+                tabChanged={this.state.tabChanged}
+                onChangeTab={this.handleTabChange}
+                content={item}
+                onLevelPress={this.handleLevelPress}
+              />
             </Tab>
           ))}
         </Tabs>

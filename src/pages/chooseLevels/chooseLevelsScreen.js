@@ -31,6 +31,11 @@ class ChooseLevelsScreen extends Component {
       this.handleReturnedToThisPage(false);
       this.fetchGame();
     }
+
+    if (this.props.tabChanged) {
+      this.props.onChangeTab(false);
+      this.fetchGame();
+    }
   }
 
   handleReturnedToThisPage = (returnedToThisPage) => {
@@ -183,11 +188,15 @@ class ChooseLevelsScreen extends Component {
 ChooseLevelsScreen.propTypes = {
   content: PropTypes.objectOf(PropTypes.any),
   onLevelPress: PropTypes.func,
+  tabChanged: PropTypes.bool,
+  onChangeTab: PropTypes.func,
 };
 
 ChooseLevelsScreen.defaultProps = {
   content: {},
   onLevelPress: () => {},
+  tabChanged: false,
+  onChangeTab: () => {},
 };
 
 export default ChooseLevelsScreen;
