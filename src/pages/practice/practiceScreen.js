@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity, Modal, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Icon,
@@ -28,11 +28,16 @@ class ChooseThemeScreen extends Component {
   state = {
     study: [],
     test: [],
+    modalVisible: false,
   }
 
   componentDidMount() {
     this.fetchStudy();
     this.fetchTest();
+  }
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   fetchStudy = async () => {
@@ -62,6 +67,30 @@ class ChooseThemeScreen extends Component {
   callbackSucessGetTest = (test) => {
     this.setState({ test });
   }
+
+  showModal = () => (
+    <Modal
+      animationType="fade"
+      transparent
+      visible={this.state.modalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+      }}
+    >
+      <View style={styles.containerModal}>
+        <View style={styles.contentModal}>
+          <Text style={styles.textError}>Não possui conteúdo cadastrado!</Text>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(false);
+            }}
+          >
+            <Text>Continuar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  )
 
   render() {
     const chosenLevel = this.props.navigation.getParam('chosenLevel', {});
@@ -102,7 +131,13 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Study', { study: this.state.study, practice: 'Estude' })}
+              onPress={() => {
+                if (this.state.study.length === 0) {
+                  this.setModalVisible(true);
+                } else {
+                  this.props.navigation.navigate('Study', { study: this.state.study, practice: 'Estude' });
+                }
+              }}
             >
               <IconEntypo
                 name="open-book"
@@ -119,7 +154,13 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Train', { study: this.state.study, practice: 'Treine' })}
+              onPress={() => {
+                if (this.state.study.length === 0) {
+                  this.setModalVisible(true);
+                } else {
+                  this.props.navigation.navigate('Train', { study: this.state.study, practice: 'Treine' });
+                }
+              }}
             >
               <IconEntypo
                 name="pencil"
@@ -136,7 +177,13 @@ class ChooseThemeScreen extends Component {
               light
               rounded
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Test', { questions: this.state.test, practice: 'Teste' })}
+              onPress={() => {
+                if (this.state.test.length === 0) {
+                  this.setModalVisible(true);
+                } else {
+                  this.props.navigation.navigate('Test', { questions: this.state.test, practice: 'Teste' });
+                }
+              }}
             >
               <IconEntypo
                 name="check"
@@ -147,6 +194,9 @@ class ChooseThemeScreen extends Component {
             </Button>
           </View>
         </View>
+
+        {this.showModal()}
+
       </Container>
     );
   }
