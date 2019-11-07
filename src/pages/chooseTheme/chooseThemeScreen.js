@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, ScrollView } from 'react-native';
+import { Image, ScrollView, Modal, Alert, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Icon,
@@ -26,10 +26,15 @@ class ChooseThemeScreen extends Component {
   state = {
     themes: [],
     loading: true,
+    modalVisible: false,
   }
 
   componentDidMount() {
     this.fetchThemes();
+  }
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   fetchThemes = async () => {
@@ -44,8 +49,34 @@ class ChooseThemeScreen extends Component {
   handleThemePress = (theme) => {
     if (!this.state.loading) {
       this.props.navigation.navigate('ChooseContent', { theme });
+    } else if (theme.contents.length === 0) {
+      this.setModalVisible(true);
     }
   }
+
+  showModal = () => (
+    <Modal
+      animationType="fade"
+      transparent
+      visible={this.state.modalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+      }}
+    >
+      <View style={styles.containerModal}>
+        <View style={styles.contentModal}>
+          <Text style={styles.textError}>Não possui conteúdo cadastrado!</Text>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(false);
+            }}
+          >
+            <Text>Continuar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  )
 
   render() {
     const { themes } = this.state;
@@ -105,6 +136,9 @@ class ChooseThemeScreen extends Component {
             </View>
           </View>
         </ScrollView>
+
+        {this.showModal()}
+
       </Container>
     );
   }
