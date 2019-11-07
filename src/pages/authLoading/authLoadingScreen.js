@@ -16,9 +16,9 @@ class AuthLoadingScreen extends React.Component {
   }
 
   checkAccess = async () => {
-    const userTokenJson = await AsyncStorage.getItem('userTokenJson');
+    const token = await AsyncStorage.getItem('token');
 
-    this.props.navigation.navigate(userTokenJson ? 'Home' : 'SignIn');
+    this.props.navigation.navigate(token ? 'Home' : 'SignIn');
   };
 
   render() {
