@@ -41,8 +41,10 @@ class ChooseThemeScreen extends Component {
     this.setState({ themes, loading: false });
   }
 
-  handleContentPress = (item) => {
-    this.props.navigation.navigate('Practice', { content: item });
+  handleThemePress = (theme) => {
+    if (!this.state.loading) {
+      this.props.navigation.navigate('ChooseContent', { theme });
+    }
   }
 
   render() {
@@ -77,7 +79,7 @@ class ChooseThemeScreen extends Component {
                 iconLeft
                 rounded
                 block
-                onPress={() => !this.state.loading && this.props.navigation.navigate('ChooseContent', { theme: themes[0] })}
+                onPress={() => this.handleThemePress(themes[0])}
               >
                 <IconMaterialCommunity
                   name="airplane"
@@ -91,7 +93,7 @@ class ChooseThemeScreen extends Component {
                 iconLeft
                 rounded
                 block
-                onPress={() => !this.state.loading && this.props.navigation.navigate('ChooseContent', { theme: themes[1] })}
+                onPress={() => this.handleThemePress(themes[1])}
               >
                 <IconMaterialCommunity
                   name="book-open-variant"
