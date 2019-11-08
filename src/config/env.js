@@ -1,5 +1,5 @@
 const environmentVariables = {
-  api: 'http://10.115.63.93:8080/v1',
+  api: 'http://192.168.0.100:8080/v1',
 };
 
 export default environmentVariables;
