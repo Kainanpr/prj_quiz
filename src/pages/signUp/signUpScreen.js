@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import backgroundImg from '../../assets/images/background-signin.jpg';
 
-import { create } from '../../services/user/userApi';
+import { create } from '../../services/userApi';
 
 class SignUpScreen extends Component {
   state = {

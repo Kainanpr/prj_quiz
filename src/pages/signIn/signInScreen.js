@@ -11,7 +11,7 @@ import styles from './styles';
 import quizLogoImg from '../../assets/images/quiz_logo.png';
 import backgroundImg from '../../assets/images/background-signin.jpg';
 
-import { login } from '../../services/user/userApi';
+import { login } from '../../services/userApi';
 
 export default class SignInScreen extends Component {
   static navigationOptions = {

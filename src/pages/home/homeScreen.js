@@ -20,7 +20,7 @@ import quizLogoImg from '../../assets/images/quiz_logo_simbolo.png';
 import ifspLogoImg from '../../assets/images/ifsp_logo.png';
 import backgroundImg from '../../assets/images/background-signin.jpg';
 import styles from './styles';
-import { userAuthenticated } from '../../services/user/userApi';
+import { userAuthenticated } from '../../services/userApi';
 
 class HomeScreen extends Component {
   fetchUserAuthenticated = async () => {

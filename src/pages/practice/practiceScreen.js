@@ -18,8 +18,8 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { getStudy } from '../../services/study/studyApi';
-import { getTest } from '../../services/test/testApi';
+import { getStudy } from '../../services/studyApi';
+import { getTest } from '../../services/testApi';
 
 import practiceImg from '../../assets/images/icon-practice-screen.png';
 import styles from './styles';

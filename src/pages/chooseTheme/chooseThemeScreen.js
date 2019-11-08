@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import quizLearningImg from '../../assets/images/learning.png';
 import styles from './styles';
 
-import { getThemes } from '../../services/theme/themeApi';
+import { getThemes } from '../../services/themeApi';
 
 class ChooseThemeScreen extends Component {
   state = {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import environmentVariables from '../../config/env';
+import environmentVariables from '../config/env';
 
 const getApi = (token = '') => axios.create({
   baseURL: environmentVariables.api,

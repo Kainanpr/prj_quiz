@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-import environmentVariables from '../../config/env';
+import environmentVariables from '../config/env';
 
 const getApi = (token = '') => axios.create({
   baseURL: environmentVariables.api,
   headers: { Authorization: token },
 });
 
-const getThemes = (token, funcSucess) => {
-  getApi(token).get('/themes')
+const getStudy = (token, contentId, levelId, funcSucess) => {
+  getApi(token).get(`/studies?contentId=${contentId}&levelId=${levelId}`)
     .then((response) => {
       funcSucess(response.data);
     })
@@ -18,5 +18,5 @@ const getThemes = (token, funcSucess) => {
 };
 
 export {
-  getThemes,
+  getStudy,
 };

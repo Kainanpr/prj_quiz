@@ -20,7 +20,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import { NavigationEvents } from 'react-navigation';
 
-import { updateGame } from '../../services/game/gameApi';
+import { updateGame } from '../../services/gameApi';
 
 import styles from './styles';
 

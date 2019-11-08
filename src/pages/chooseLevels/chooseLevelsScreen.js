@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
 
-import { getGame } from '../../services/game/gameApi';
+import { getGame } from '../../services/gameApi';
 
 
 class ChooseLevelsScreen extends Component {
