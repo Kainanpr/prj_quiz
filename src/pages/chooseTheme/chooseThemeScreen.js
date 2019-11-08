@@ -48,9 +48,11 @@ class ChooseThemeScreen extends Component {
 
   handleThemePress = (theme) => {
     if (!this.state.loading) {
-      this.props.navigation.navigate('ChooseContent', { theme });
-    } else if (theme.contents.length === 0) {
-      this.setModalVisible(true);
+      if (theme.contents.length !== 0) {
+        this.props.navigation.navigate('ChooseContent', { theme });
+      } else {
+        this.setModalVisible(true);
+      }
     }
   }
 
