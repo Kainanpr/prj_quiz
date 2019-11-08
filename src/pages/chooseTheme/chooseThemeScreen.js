@@ -13,7 +13,6 @@ import {
   Left,
   Right,
 } from 'native-base';
-import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -107,34 +106,20 @@ class ChooseThemeScreen extends Component {
               <Text style={styles.text}>O que você quer aprender hoje?</Text>
             </View>
             <View style={styles.containerBotton}>
-              <Button
-                style={styles.button}
-                iconLeft
-                rounded
-                block
-                onPress={() => this.handleThemePress(themes[0])}
-              >
-                <IconMaterialCommunity
-                  name="airplane"
-                  size={25}
-                  color="white"
-                />
-                <Text style={styles.buttonText}>Vocabulário</Text>
-              </Button>
-              <Button
-                style={styles.button}
-                iconLeft
-                rounded
-                block
-                onPress={() => this.handleThemePress(themes[1])}
-              >
-                <IconMaterialCommunity
-                  name="book-open-variant"
-                  size={25}
-                  color="white"
-                />
-                <Text style={styles.buttonText}>Gramática</Text>
-              </Button>
+              {
+                themes.map((theme) => (
+                  <Button
+                    key={theme.id}
+                    style={styles.button}
+                    iconLeft
+                    rounded
+                    block
+                    onPress={() => this.handleThemePress(theme)}
+                  >
+                    <Text style={styles.buttonText}>{theme.name}</Text>
+                  </Button>
+                ))
+              }
             </View>
           </View>
         </ScrollView>

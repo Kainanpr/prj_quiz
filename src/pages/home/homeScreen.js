@@ -23,14 +23,6 @@ import styles from './styles';
 import { userAuthenticated } from '../../services/user/userApi';
 
 class HomeScreen extends Component {
-  state = {
-    loading: true,
-  }
-
-  componentDidMount() {
-    this.fetchUserAuthenticated();
-  }
-
   fetchUserAuthenticated = async () => {
     const token = await AsyncStorage.getItem('token');
     userAuthenticated(token, this.callbackSuccess);
@@ -38,13 +30,11 @@ class HomeScreen extends Component {
 
   callbackSuccess = async (response) => {
     await AsyncStorage.setItem('userAuthenticatedJson', JSON.stringify(response));
-    this.setState({ loading: false });
+    this.props.navigation.navigate('ChooseTheme');
   }
 
   handlePlayPress = async () => {
-    if (!this.state.loading) {
-      this.props.navigation.navigate('ChooseTheme');
-    }
+    this.fetchUserAuthenticated();
   }
 
   render() {
