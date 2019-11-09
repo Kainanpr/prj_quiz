@@ -3,21 +3,17 @@ import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
-  Icon,
   Button,
   Container,
-  Body,
-  Header,
-  Title,
-  Left,
   Text,
-  Right,
   View,
 } from 'native-base';
 import CardFlip from 'react-native-card-flip';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { NavigationEvents } from 'react-navigation';
+
+import CustomHeader from '../../components/header/customHeader';
 
 import styles from './styles';
 
@@ -100,17 +96,11 @@ class StudyScreen extends Component {
     return (
       <Container style={styles.container}>
         <NavigationEvents onWillFocus={() => { this.setStudy(); }} />
-        <Header androidStatusBarColor="#186078" style={styles.header}>
-          <Left style={{ flex: 1 }}>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body style={{ flex: 4 }}>
-            <Title>{practiceName}</Title>
-          </Body>
-          <Right style={{ flex: 1 }} />
-        </Header>
+        <CustomHeader
+          onButtonPress={() => this.props.navigation.goBack()}
+          titleName={practiceName}
+          hasTabs={false}
+        />
         <View style={styles.content}>
           <CardFlip flipDirection="x" style={styles.cardContainer} ref={(card) => { this.card = card; }}>
             <TouchableOpacity activeOpacity={1} style={[styles.card, styles.card1]} onPress={() => this.flipCard()}>

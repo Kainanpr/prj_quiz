@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import styles from './styles';
+import themeColors from '../../constants/themeColors';
 import quizLogoImg from '../../assets/images/quiz_logo.png';
 import backgroundImg from '../../assets/images/background-signin.jpg';
 
@@ -63,7 +64,7 @@ export default class SignInScreen extends Component {
   render() {
     return (
       <ImageBackground source={backgroundImg} style={styles.imageBackgroundContainer}>
-        <StatusBar backgroundColor="#218b8f" />
+        <StatusBar backgroundColor={themeColors.headerNotAuthenticated.statusBarColor} />
         <View style={styles.container}>
           <View style={styles.containerLogo}>
             <Image

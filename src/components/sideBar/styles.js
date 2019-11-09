@@ -1,8 +1,9 @@
 import { Platform } from 'react-native';
+import themeColors from '../../constants/themeColors';
 
 export default {
   content: {
-    backgroundColor: '#186078',
+    backgroundColor: themeColors.sideBar.backgroundColor,
   },
   containerLogo: {
     padding: 50,

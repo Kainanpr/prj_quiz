@@ -3,20 +3,15 @@ import React, { Component } from 'react';
 import { Image, TouchableOpacity, Modal, Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import {
-  Icon,
   Button,
   Container,
-  Body,
-  Header,
-  Title,
-  Left,
   Text,
-  Right,
   View,
 } from 'native-base';
 import IconEntypo from 'react-native-vector-icons/Entypo';
-
 import AsyncStorage from '@react-native-community/async-storage';
+
+import CustomHeader from '../../components/header/customHeader';
 
 import { getStudy } from '../../services/studyApi';
 import { getTest } from '../../services/testApi';
@@ -98,23 +93,14 @@ class ChooseThemeScreen extends Component {
 
     return (
       <Container style={styles.container}>
-        <Header androidStatusBarColor="#186078" style={styles.header}>
-          <Left style={{ flex: 1 }}>
-            <Button
-              transparent
-              onPress={() => {
-                onReturnedToLevelPage(true);
-                this.props.navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body style={{ flex: 4 }}>
-            <Title>{chosenLevel.name}</Title>
-          </Body>
-          <Right style={{ flex: 1 }} />
-        </Header>
+        <CustomHeader
+          onButtonPress={() => {
+            onReturnedToLevelPage(true);
+            this.props.navigation.goBack();
+          }}
+          titleName={chosenLevel.name}
+          hasTabs={false}
+        />
         <View style={styles.content}>
           <View style={styles.containerLogo}>
             <Image

@@ -2,15 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
 import {
-  Icon,
   Button,
   Container,
-  Body,
-  Header,
-  Title,
-  Left,
   Text,
-  Right,
   View,
   Radio,
 } from 'native-base';
@@ -19,6 +13,8 @@ import * as Progress from 'react-native-progress';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { NavigationEvents } from 'react-navigation';
+
+import CustomHeader from '../../components/header/customHeader';
 
 import { updateGame } from '../../services/gameApi';
 
@@ -189,17 +185,11 @@ class TestScreen extends Component {
     return (
       <Container style={styles.container}>
         <NavigationEvents onWillFocus={() => { this.setQuestions(); }} />
-        <Header androidStatusBarColor="#186078" style={styles.header}>
-          <Left style={{ flex: 1 }}>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body style={{ flex: 4 }}>
-            <Title>{practiceName}</Title>
-          </Body>
-          <Right style={{ flex: 1 }} />
-        </Header>
+        <CustomHeader
+          onButtonPress={() => this.props.navigation.goBack()}
+          titleName={practiceName}
+          hasTabs={false}
+        />
         <ScrollView>
           {!this.state.modalVisible && (
             <View style={styles.content}>

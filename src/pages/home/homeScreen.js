@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ImageBackground, View, Image } from 'react-native';
 import {
-  Icon,
   Button,
   Text,
   Container,
-  Body,
-  Header,
-  Title,
-  Left,
-  Right,
 } from 'native-base';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import AsyncStorage from '@react-native-community/async-storage';
+
+import CustomHeader from '../../components/header/customHeader';
 
 import quizLogoImg from '../../assets/images/quiz_logo_simbolo.png';
 import ifspLogoImg from '../../assets/images/ifsp_logo.png';
@@ -40,20 +35,12 @@ class HomeScreen extends Component {
     return (
       <ImageBackground source={backgroundImg} style={styles.imageBackgroundContainer}>
         <Container style={styles.container}>
-          <Header androidStatusBarColor="#186078" style={styles.header}>
-            <Left>
-              <Button
-                transparent
-                onPress={() => this.props.navigation.openDrawer()}
-              >
-                <Icon name="menu" />
-              </Button>
-            </Left>
-            <Body>
-              <Title>Página inicial</Title>
-            </Body>
-            <Right />
-          </Header>
+          <CustomHeader
+            onButtonPress={() => this.props.navigation.openDrawer()}
+            titleName="Página inicial"
+            iconName="menu"
+            hasTabs={false}
+          />
           <View padder style={styles.content}>
             <View style={styles.containerLogoQuiz}>
               <Image

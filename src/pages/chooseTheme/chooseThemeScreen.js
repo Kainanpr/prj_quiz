@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import { Image, ScrollView, Modal, Alert, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
-  Icon,
   Button,
   Container,
-  Body,
-  Header,
-  Title,
   View,
   Text,
-  Left,
-  Right,
 } from 'native-base';
+import CustomHeader from '../../components/header/customHeader';
 
 import quizLearningImg from '../../assets/images/learning.png';
 import styles from './styles';
@@ -81,17 +76,11 @@ class ChooseThemeScreen extends Component {
 
     return (
       <Container style={styles.container}>
-        <Header androidStatusBarColor="#186078" style={styles.header} hasTabs>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Temas</Title>
-          </Body>
-          <Right />
-        </Header>
+        <CustomHeader
+          onButtonPress={() => this.props.navigation.goBack()}
+          titleName="Temas"
+          hasTabs
+        />
         <ScrollView>
           <View style={styles.content}>
             <View style={styles.containerLogo}>

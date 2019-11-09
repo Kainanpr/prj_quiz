@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 20,
   },
-  header: {
-    backgroundColor: '#186078',
-  },
   containerPage: {
     flex: 1,
   },

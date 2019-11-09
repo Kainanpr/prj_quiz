@@ -9,9 +9,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  header: {
-    backgroundColor: '#186078',
-  },
   cardContainer: {
     justifyContent: 'center',
     flex: 1,

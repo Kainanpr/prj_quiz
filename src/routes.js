@@ -11,7 +11,6 @@ import AuthLoadingScreen from './pages/authLoading/authLoadingScreen';
 import SignInScreen from './pages/signIn/signInScreen';
 import SignUpScreen from './pages/signUp/signUpScreen';
 import HomeScreen from './pages/home/homeScreen';
-import ProfileScreen from './pages/profile/profileScreen';
 import ChooseThemeScreen from './pages/chooseTheme/chooseThemeScreen';
 import ChooseContentScreen from './pages/chooseContent/chooseContentScreen';
 import ChooseLevelsScreen from './pages/chooseLevels/chooseLevelsScreen';
@@ -42,7 +41,6 @@ const StartingGameStack = createStackNavigator({
 
 const HomeDrawer = createDrawerNavigator({
   StartingGameStack,
-  Profile: { screen: ProfileScreen },
   Study: { screen: StudyScreen },
   Train: { screen: TrainScreen },
   Test: { screen: TestScreen },

@@ -8,9 +8,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
-  header: {
-    backgroundColor: '#186078',
-  },
   content: {
     flex: 1,
     padding: 20,

@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Icon,
-  Button,
   Container,
-  Body,
   Tabs,
   Tab,
   ScrollableTab,
-  Header,
-  Title,
-  Left,
-  Right,
 } from 'native-base';
+
+import CustomHeader from '../../components/header/customHeader';
+import themeColors from '../../constants/themeColors';
 
 import ChooseLevelsScreen from '../chooseLevels/chooseLevelsScreen';
 import styles from './styles';
@@ -36,20 +32,26 @@ class ChooseContentScreen extends Component {
 
     return (
       <Container style={styles.container}>
-        <Header androidStatusBarColor="#186078" style={styles.header} hasTabs>
-          <Left>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>{theme.name}</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Tabs onChangeTab={() => { this.handleTabChange(true); }} renderTabBar={() => <ScrollableTab style={{ backgroundColor: '#186078' }} />}>
+        <CustomHeader
+          onButtonPress={() => this.props.navigation.goBack()}
+          titleName={theme.name}
+          hasTabs
+        />
+        <Tabs
+          onChangeTab={() => { this.handleTabChange(true); }}
+          renderTabBar={() => (
+            <ScrollableTab
+              style={{ backgroundColor: themeColors.headerAuthenticated.backgroundColor }}
+            />
+          )}
+        >
           {theme.contents.map((item) => (
-            <Tab key={item.id.toString()} activeTabStyle={{ backgroundColor: '#186078' }} tabStyle={{ backgroundColor: '#186078' }} heading={item.name}>
+            <Tab
+              key={item.id.toString()}
+              activeTabStyle={{ backgroundColor: themeColors.headerAuthenticated.backgroundColor }}
+              tabStyle={{ backgroundColor: themeColors.headerAuthenticated.backgroundColor }}
+              heading={item.name}
+            >
               <ChooseLevelsScreen
                 tabChanged={this.state.tabChanged}
                 onChangeTab={this.handleTabChange}

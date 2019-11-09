@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import {
-  Icon,
-  Button,
   Container,
-  Body,
-  Header,
-  Title,
-  Left,
   Text,
-  Right,
   View,
 } from 'native-base';
 import { NavigationEvents } from 'react-navigation';
@@ -18,6 +11,8 @@ import { NavigationEvents } from 'react-navigation';
 import * as Progress from 'react-native-progress';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import Tts from 'react-native-tts';
+
+import CustomHeader from '../../components/header/customHeader';
 
 import styles from './styles';
 
@@ -386,17 +381,11 @@ class TrainScreen extends Component {
     return (
       <Container style={styles.container}>
         <NavigationEvents onWillFocus={() => { this.setStudy(); }} />
-        <Header androidStatusBarColor="#186078" style={styles.header}>
-          <Left style={{ flex: 1 }}>
-            <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body style={{ flex: 4 }}>
-            <Title>{practiceName}</Title>
-          </Body>
-          <Right style={{ flex: 1 }} />
-        </Header>
+        <CustomHeader
+          onButtonPress={() => this.props.navigation.goBack()}
+          titleName={practiceName}
+          hasTabs={false}
+        />
         <ScrollView keyboardShouldPersistTaps="always">
           <View style={styles.content}>
             <View style={styles.containerAllProgress}>
