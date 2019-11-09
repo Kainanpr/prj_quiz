@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   contentModal: {
     paddingHorizontal: 20,
-    paddingVertical: 80,
+    paddingVertical: 50,
     alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: 5,
@@ -24,15 +24,21 @@ const styles = StyleSheet.create({
   },
   textSuccess: {
     fontSize: 20,
-    marginBottom: 10,
     fontWeight: 'bold',
     color: '#23b26d',
   },
   textError: {
     fontSize: 20,
-    marginBottom: 10,
     fontWeight: 'bold',
     color: '#ff725b',
+  },
+  button: {
+    paddingHorizontal: 25,
+    marginTop: 30,
+  },
+  textButton: {
+    fontSize: 15,
+    color: 'black',
   },
 });
 

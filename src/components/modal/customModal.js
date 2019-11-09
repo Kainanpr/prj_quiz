@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  TouchableOpacity,
   Modal,
   Alert,
 } from 'react-native';
+import { Button } from 'native-base';
 import styles from './styles';
 
 class CustomModal extends PureComponent {
@@ -25,9 +25,13 @@ class CustomModal extends PureComponent {
             <Text style={this.props.hasError ? styles.textError : styles.textSuccess}>
               {this.props.text}
             </Text>
-            <TouchableOpacity onPress={this.props.onButtonPress}>
-              <Text>Continuar</Text>
-            </TouchableOpacity>
+            <Button
+              style={styles.button}
+              light
+              onPress={this.props.onButtonPress}
+            >
+              <Text style={styles.textButton}>Continuar</Text>
+            </Button>
           </View>
         </View>
       </Modal>
