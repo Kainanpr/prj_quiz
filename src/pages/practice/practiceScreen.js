@@ -41,15 +41,13 @@ class ChooseThemeScreen extends Component {
   }
 
   fetchStudy = async () => {
-    const token = await AsyncStorage.getItem('token');
-
     const gameJson = await AsyncStorage.getItem('gameJson');
     const game = JSON.parse(gameJson);
 
     const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
     const chosenLevel = JSON.parse(chosenLevelJson);
 
-    getStudy(token, game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
+    getStudy(game.contentId, chosenLevel.id, this.callbackSucessGetStudy);
   }
 
   callbackSucessGetStudy = (study) => {
@@ -57,15 +55,13 @@ class ChooseThemeScreen extends Component {
   }
 
   fetchTest = async () => {
-    const token = await AsyncStorage.getItem('token');
-
     const gameJson = await AsyncStorage.getItem('gameJson');
     const game = JSON.parse(gameJson);
 
     const chosenLevelJson = await AsyncStorage.getItem('chosenLevelJson');
     const chosenLevel = JSON.parse(chosenLevelJson);
 
-    getTest(token, game.contentId, chosenLevel.id, this.callbackSucessGetTest);
+    getTest(game.contentId, chosenLevel.id, this.callbackSucessGetTest);
   }
 
   callbackSucessGetTest = (test) => {

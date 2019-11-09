@@ -14,8 +14,6 @@ import {
   Right,
 } from 'native-base';
 
-import AsyncStorage from '@react-native-community/async-storage';
-
 import quizLearningImg from '../../assets/images/learning.png';
 import styles from './styles';
 
@@ -37,8 +35,7 @@ class ChooseThemeScreen extends Component {
   }
 
   fetchThemes = async () => {
-    const token = await AsyncStorage.getItem('token');
-    getThemes(token, this.callbackSucessGetThemes);
+    getThemes(this.callbackSucessGetThemes);
   }
 
   callbackSucessGetThemes = (themes) => {

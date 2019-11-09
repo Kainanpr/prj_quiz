@@ -46,10 +46,9 @@ class ChooseLevelsScreen extends Component {
     const { content } = this.props;
 
     const userAuthenticatedJson = await AsyncStorage.getItem('userAuthenticatedJson');
-    const token = await AsyncStorage.getItem('token');
     const userAuthenticated = JSON.parse(userAuthenticatedJson);
 
-    getGame(token, userAuthenticated.id, content.id, this.callbackSucessGetGame);
+    getGame(userAuthenticated.id, content.id, this.callbackSucessGetGame);
   }
 
   callbackSucessGetGame = async (game) => {

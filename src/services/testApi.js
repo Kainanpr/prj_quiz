@@ -1,14 +1,7 @@
-import axios from 'axios';
+import api from './api';
 
-import environmentVariables from '../config/env';
-
-const getApi = (token = '') => axios.create({
-  baseURL: environmentVariables.api,
-  headers: { Authorization: token },
-});
-
-const getTest = (token, contentId, levelId, funcSucess) => {
-  getApi(token).get(`/tests?contentId=${contentId}&levelId=${levelId}`)
+const getTest = (contentId, levelId, funcSucess) => {
+  api.get(`/tests?contentId=${contentId}&levelId=${levelId}`)
     .then((response) => {
       funcSucess(response.data);
     })

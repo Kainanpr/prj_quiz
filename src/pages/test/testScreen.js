@@ -99,8 +99,6 @@ class TestScreen extends Component {
   passedLevel = async () => {
     const { questions } = this.state;
 
-    const token = await AsyncStorage.getItem('token');
-
     const gameJson = await AsyncStorage.getItem('gameJson');
     const game = JSON.parse(gameJson);
 
@@ -108,7 +106,7 @@ class TestScreen extends Component {
     const chosenLevel = JSON.parse(chosenLevelJson);
 
     if (chosenLevel.id === game.levelId) {
-      updateGame(token, { ...game, levelId: chosenLevel.id + 1 }, this.callbackSucessUpdateGame);
+      updateGame({ ...game, levelId: chosenLevel.id + 1 }, this.callbackSucessUpdateGame);
     }
 
     this.setState({

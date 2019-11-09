@@ -1,14 +1,7 @@
-import axios from 'axios';
-
-import environmentVariables from '../config/env';
-
-const getApi = (token = '') => axios.create({
-  baseURL: environmentVariables.api,
-  headers: { Authorization: token },
-});
+import api from './api';
 
 const create = (user, funcBackPage) => {
-  getApi().post('/users', user)
+  api.post('/users', user)
     .then(() => {
       funcBackPage();
     })
@@ -18,7 +11,7 @@ const create = (user, funcBackPage) => {
 };
 
 const login = (user, funcHomePage, funcError) => {
-  getApi().post('/login', user)
+  api.post('/login', user)
     .then((response) => {
       funcHomePage(response.headers.authorization);
     })
@@ -28,8 +21,8 @@ const login = (user, funcHomePage, funcError) => {
     });
 };
 
-const userAuthenticated = (token, funcSucess) => {
-  getApi(token).get('/users/authenticated')
+const userAuthenticated = (funcSucess) => {
+  api.get('/users/authenticated')
     .then((response) => {
       const responseUser = {
         id: response.data.id,

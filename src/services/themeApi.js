@@ -1,14 +1,7 @@
-import axios from 'axios';
+import api from './api';
 
-import environmentVariables from '../config/env';
-
-const getApi = (token = '') => axios.create({
-  baseURL: environmentVariables.api,
-  headers: { Authorization: token },
-});
-
-const getThemes = (token, funcSucess) => {
-  getApi(token).get('/themes')
+const getThemes = (funcSucess) => {
+  api.get('/themes')
     .then((response) => {
       funcSucess(response.data);
     })

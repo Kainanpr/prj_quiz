@@ -24,8 +24,7 @@ import { userAuthenticated } from '../../services/userApi';
 
 class HomeScreen extends Component {
   fetchUserAuthenticated = async () => {
-    const token = await AsyncStorage.getItem('token');
-    userAuthenticated(token, this.callbackSuccess);
+    userAuthenticated(this.callbackSuccess);
   }
 
   callbackSuccess = async (response) => {

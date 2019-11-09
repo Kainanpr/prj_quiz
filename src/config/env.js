@@ -1,5 +1,5 @@
 const environmentVariables = {
-  api: 'http://192.168.0.100:8080/v1',
+  api: 'https://english-quiz-api.herokuapp.com/v1',
 };
 
 export default environmentVariables;
