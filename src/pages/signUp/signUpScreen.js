@@ -6,10 +6,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Modal,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import CustomModal from '../../components/modal/customModal';
 
 import styles from './styles';
 import backgroundImg from '../../assets/images/background-signin.jpg';
@@ -60,31 +60,6 @@ class SignUpScreen extends Component {
   callbackCreate = () => {
     this.setModalVisible(true);
   }
-
-  showModal = () => (
-    <Modal
-      animationType="fade"
-      transparent
-      visible={this.state.modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}
-    >
-      <View style={styles.containerModal}>
-        <View style={styles.contentModal}>
-          <Text style={styles.textSuccess}>Usuário cadastrado com sucesso!</Text>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(false);
-              this.props.navigation.goBack();
-            }}
-          >
-            <Text>Continuar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  )
 
   render() {
     return (
@@ -168,7 +143,15 @@ class SignUpScreen extends Component {
           </View>
         </View>
 
-        {this.showModal()}
+        <CustomModal
+          visible={this.state.modalVisible}
+          onButtonPress={() => {
+            this.setModalVisible(false);
+            this.props.navigation.goBack();
+          }}
+          text="Usuário cadastrado com sucesso!"
+          hasError={false}
+        />
 
       </ImageBackground>
     );

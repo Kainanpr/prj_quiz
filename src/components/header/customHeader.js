@@ -43,7 +43,7 @@ CustomHeader.propTypes = {
 };
 
 CustomHeader.defaultProps = {
-  onButtonPress: {},
+  onButtonPress: () => {},
   titleName: '',
   iconName: 'arrow-back',
   hasTabs: false,

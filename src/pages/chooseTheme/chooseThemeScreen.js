@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, ScrollView, Modal, Alert, TouchableOpacity } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -8,6 +8,7 @@ import {
   Text,
 } from 'native-base';
 import CustomHeader from '../../components/header/customHeader';
+import CustomModal from '../../components/modal/customModal';
 
 import quizLearningImg from '../../assets/images/learning.png';
 import styles from './styles';
@@ -46,30 +47,6 @@ class ChooseThemeScreen extends Component {
       }
     }
   }
-
-  showModal = () => (
-    <Modal
-      animationType="fade"
-      transparent
-      visible={this.state.modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}
-    >
-      <View style={styles.containerModal}>
-        <View style={styles.contentModal}>
-          <Text style={styles.textError}>Não possui conteúdo cadastrado!</Text>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(false);
-            }}
-          >
-            <Text>Continuar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  )
 
   render() {
     const { themes } = this.state;
@@ -110,7 +87,14 @@ class ChooseThemeScreen extends Component {
           </View>
         </ScrollView>
 
-        {this.showModal()}
+        <CustomModal
+          visible={this.state.modalVisible}
+          onButtonPress={() => {
+            this.setModalVisible(false);
+          }}
+          text="Não possui conteúdo cadastrado!"
+          hasError
+        />
 
       </Container>
     );

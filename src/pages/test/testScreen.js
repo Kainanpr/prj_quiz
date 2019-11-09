@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, ScrollView, Modal, Alert } from 'react-native';
+import { TouchableOpacity, ScrollView } from 'react-native';
 import {
   Button,
   Container,
@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
 
 import CustomHeader from '../../components/header/customHeader';
+import CustomModal from '../../components/modal/customModal';
 
 import { updateGame } from '../../services/gameApi';
 
@@ -135,52 +136,11 @@ class TestScreen extends Component {
     });
   }
 
-  showModal = () => {
-    const { wrongQuestions } = this.state;
-
-    const passedLevel = wrongQuestions.length === 0;
-
-    return (
-      <Modal
-        animationType="fade"
-        transparent
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
-      >
-        <View style={styles.containerModal}>
-          <View style={styles.contentModal}>
-            <Text
-              style={passedLevel ? styles.textPassed : styles.textNotPassed}
-            >
-              {passedLevel
-                ? 'Parabéns, o próximo nível foi liberado!'
-                : `Você errou ${wrongQuestions.length} ${wrongQuestions.length === 1 ? 'questão' : 'questões'}!`}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                if (passedLevel) {
-                  this.passedLevel();
-                } else {
-                  this.remake();
-                }
-              }}
-            >
-              <Text>
-                {passedLevel
-                  ? 'Continuar'
-                  : 'Refazer'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    );
-  }
-
   render() {
     const practiceName = this.props.navigation.getParam('practice', {});
+
+    const { wrongQuestions } = this.state;
+    const passedLevel = wrongQuestions.length === 0;
 
     return (
       <Container style={styles.container}>
@@ -293,7 +253,20 @@ class TestScreen extends Component {
             </View>
           )}
 
-          {this.showModal()}
+          <CustomModal
+            visible={this.state.modalVisible}
+            onButtonPress={() => {
+              if (passedLevel) {
+                this.passedLevel();
+              } else {
+                this.remake();
+              }
+            }}
+            text={passedLevel
+              ? 'Parabéns, o próximo nível foi liberado!'
+              : `Você errou ${wrongQuestions.length} ${wrongQuestions.length === 1 ? 'questão' : 'questões'}!`}
+            hasError={!passedLevel}
+          />
 
         </ScrollView>
       </Container>

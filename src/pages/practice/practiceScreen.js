@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Image, TouchableOpacity, Modal, Alert } from 'react-native';
+import { Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -12,6 +12,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import CustomHeader from '../../components/header/customHeader';
+import CustomModal from '../../components/modal/customModal';
 
 import { getStudy } from '../../services/studyApi';
 import { getTest } from '../../services/testApi';
@@ -62,30 +63,6 @@ class ChooseThemeScreen extends Component {
   callbackSucessGetTest = (test) => {
     this.setState({ test });
   }
-
-  showModal = () => (
-    <Modal
-      animationType="fade"
-      transparent
-      visible={this.state.modalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}
-    >
-      <View style={styles.containerModal}>
-        <View style={styles.contentModal}>
-          <Text style={styles.textError}>Não possui conteúdo cadastrado!</Text>
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(false);
-            }}
-          >
-            <Text>Continuar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  )
 
   render() {
     const chosenLevel = this.props.navigation.getParam('chosenLevel', {});
@@ -181,7 +158,14 @@ class ChooseThemeScreen extends Component {
           </View>
         </View>
 
-        {this.showModal()}
+        <CustomModal
+          visible={this.state.modalVisible}
+          onButtonPress={() => {
+            this.setModalVisible(false);
+          }}
+          text="Não possui conteúdo cadastrado!"
+          hasError
+        />
 
       </Container>
     );

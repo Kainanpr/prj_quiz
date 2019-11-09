@@ -1,4 +1,3 @@
-
 const themesColor = {
   headerAuthenticated: {
     androidStatusBarColor: '#124658',
