@@ -6,6 +6,7 @@ import {
   Tab,
   ScrollableTab,
 } from 'native-base';
+import { NavigationEvents } from 'react-navigation';
 
 import CustomHeader from '../../components/header/customHeader';
 import themeColors from '../../constants/themeColors';
@@ -17,14 +18,19 @@ import styles from './styles';
 class ChooseContentScreen extends Component {
   state = {
     tabChanged: false,
+    focusOnContentScreenToFetch: false,
   }
 
   handleTabChange = (tabChanged) => {
     this.setState({ tabChanged });
   }
 
-  handleLevelPress = (chosenLevel, onReturnedToLevelPage) => {
-    this.props.navigation.navigate('Practice', { chosenLevel, onReturnedToLevelPage });
+  handleFocusOnContentScreenToFetchChange = (focusOnContentScreenToFetch) => {
+    this.setState({ focusOnContentScreenToFetch });
+  }
+
+  handleLevelPress = (chosenLevel) => {
+    this.props.navigation.navigate('Practice', { chosenLevel });
   }
 
   render() {
@@ -32,6 +38,9 @@ class ChooseContentScreen extends Component {
 
     return (
       <Container style={styles.container}>
+        <NavigationEvents
+          onDidFocus={() => { this.handleFocusOnContentScreenToFetchChange(true); }}
+        />
         <CustomHeader
           onButtonPress={() => this.props.navigation.goBack()}
           titleName={theme.name}
@@ -55,6 +64,8 @@ class ChooseContentScreen extends Component {
               <ChooseLevelsScreen
                 tabChanged={this.state.tabChanged}
                 onChangeTab={this.handleTabChange}
+                focusOnContentScreenToFetch={this.state.focusOnContentScreenToFetch}
+                onChangeFocusOnContentScreenToFetch={this.handleFocusOnContentScreenToFetchChange}
                 content={item}
                 onLevelPress={this.handleLevelPress}
               />

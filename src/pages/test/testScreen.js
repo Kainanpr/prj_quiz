@@ -114,7 +114,7 @@ class TestScreen extends Component {
       chosenAnswer: '',
       modalVisible: false,
     }, () => {
-      this.props.navigation.goBack();
+      this.props.navigation.pop(2);
     });
   }
 

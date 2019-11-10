@@ -66,15 +66,11 @@ class PracticeScreen extends Component {
 
   render() {
     const chosenLevel = this.props.navigation.getParam('chosenLevel', {});
-    const onReturnedToLevelPage = this.props.navigation.getParam('onReturnedToLevelPage', () => {});
 
     return (
       <Container style={styles.container}>
         <CustomHeader
-          onButtonPress={() => {
-            onReturnedToLevelPage(true);
-            this.props.navigation.goBack();
-          }}
+          onButtonPress={() => { this.props.navigation.goBack(); }}
           titleName={chosenLevel.name}
           hasTabs={false}
         />

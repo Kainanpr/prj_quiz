@@ -19,27 +19,18 @@ import { getGame } from '../../services/gameApi';
 class ChooseLevelsScreen extends Component {
   state = {
     currentLevel: 1,
-    returnedToThisPage: false,
-  }
-
-  componentDidMount() {
-    this.fetchGame();
   }
 
   componentDidUpdate() {
-    if (this.state.returnedToThisPage) {
-      this.handleReturnedToThisPage(false);
-      this.fetchGame();
-    }
-
     if (this.props.tabChanged) {
       this.props.onChangeTab(false);
       this.fetchGame();
     }
-  }
 
-  handleReturnedToThisPage = (returnedToThisPage) => {
-    this.setState({ returnedToThisPage });
+    if (this.props.focusOnContentScreenToFetch) {
+      this.props.onChangeFocusOnContentScreenToFetch(false);
+      this.fetchGame();
+    }
   }
 
   fetchGame = async () => {
@@ -58,7 +49,7 @@ class ChooseLevelsScreen extends Component {
 
   handleLevelPress = async (chosenLevel) => {
     await AsyncStorage.setItem('chosenLevelJson', JSON.stringify(chosenLevel));
-    this.props.onLevelPress(chosenLevel, this.handleReturnedToThisPage);
+    this.props.onLevelPress(chosenLevel);
   }
 
   render() {
@@ -190,6 +181,8 @@ ChooseLevelsScreen.propTypes = {
   onLevelPress: PropTypes.func,
   tabChanged: PropTypes.bool,
   onChangeTab: PropTypes.func,
+  focusOnContentScreenToFetch: PropTypes.bool,
+  onChangeFocusOnContentScreenToFetch: PropTypes.func,
 };
 
 ChooseLevelsScreen.defaultProps = {
@@ -197,6 +190,8 @@ ChooseLevelsScreen.defaultProps = {
   onLevelPress: () => {},
   tabChanged: false,
   onChangeTab: () => {},
+  focusOnContentScreenToFetch: false,
+  onChangeFocusOnContentScreenToFetch: () => {},
 };
 
 export default ChooseLevelsScreen;

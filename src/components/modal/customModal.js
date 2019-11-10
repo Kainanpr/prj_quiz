@@ -16,9 +16,7 @@ class CustomModal extends PureComponent {
         animationType="fade"
         transparent
         visible={this.props.visible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
+        onRequestClose={this.props.onButtonPress}
       >
         <View style={styles.containerModal}>
           <View style={styles.contentModal}>
