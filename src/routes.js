@@ -34,6 +34,9 @@ const StartingGameStack = createStackNavigator({
   ChooseContent: { screen: ChooseContentScreen },
   ChooseLevels: { screen: ChooseLevelsScreen },
   Practice: { screen: PracticeScreen },
+  Study: { screen: StudyScreen },
+  Train: { screen: TrainScreen },
+  Test: { screen: TestScreen },
 }, {
   initialRouteName: 'Home',
   headerMode: 'none',
@@ -41,9 +44,6 @@ const StartingGameStack = createStackNavigator({
 
 const HomeDrawer = createDrawerNavigator({
   StartingGameStack,
-  Study: { screen: StudyScreen },
-  Train: { screen: TrainScreen },
-  Test: { screen: TestScreen },
 }, {
   contentComponent: ({ navigation }) => <SideBar navigation={navigation} />,
 });

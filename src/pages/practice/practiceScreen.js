@@ -20,7 +20,7 @@ import { getTest } from '../../services/testApi';
 import practiceImg from '../../assets/images/icon-practice-screen.png';
 import styles from './styles';
 
-class ChooseThemeScreen extends Component {
+class PracticeScreen extends Component {
   state = {
     study: [],
     test: [],
@@ -172,8 +172,8 @@ class ChooseThemeScreen extends Component {
   }
 }
 
-ChooseThemeScreen.propTypes = {
+PracticeScreen.propTypes = {
   navigation: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-export default ChooseThemeScreen;
+export default PracticeScreen;
