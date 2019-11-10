@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Modal,
-  Alert,
 } from 'react-native';
 import { Button } from 'native-base';
 import styles from './styles';
