@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import {
-  View,
-} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import CustomModal from './components/modal/customModal';
 
