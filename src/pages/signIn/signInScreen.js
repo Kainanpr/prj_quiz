@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, Text, TextInput,
+  View, Text, TextInput, ActivityIndicator,
   Image, ImageBackground, StatusBar, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,6 +22,7 @@ export default class SignInScreen extends Component {
   state = {
     email: '',
     password: '',
+    loading: false,
     error: false,
   };
 
@@ -38,6 +39,7 @@ export default class SignInScreen extends Component {
   };
 
   handleSignInPress = () => {
+    this.setState({ loading: true });
     const { email, password } = this.state;
 
     const user = {
@@ -49,12 +51,13 @@ export default class SignInScreen extends Component {
   };
 
   callbackSuccess = async (response) => {
+    this.setState({ loading: false });
     await AsyncStorage.setItem('token', response);
     this.props.navigation.navigate('Home');
   }
 
   callbackError = () => {
-    this.setState({ error: true });
+    this.setState({ error: true, loading: false });
   }
 
   handleSignUpPress = () => {
@@ -109,8 +112,14 @@ export default class SignInScreen extends Component {
                 secureTextEntry
               />
             </View>
-            <TouchableOpacity style={styles.button} onPress={this.handleSignInPress}>
-              <Text style={styles.buttonText}>Entrar</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.handleSignInPress}
+              disabled={this.state.loading}
+            >
+              {this.state.loading
+                ? <ActivityIndicator />
+                : <Text style={styles.buttonText}>Entrar</Text>}
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.signUpLink}
