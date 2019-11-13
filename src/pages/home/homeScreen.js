@@ -19,7 +19,12 @@ import { userAuthenticated } from '../../services/userApi';
 
 class HomeScreen extends Component {
   fetchUserAuthenticated = async () => {
-    userAuthenticated(this.callbackSuccess);
+    userAuthenticated(this.callbackSuccess, this.callbackErrorTokenExpired);
+  }
+
+  callbackErrorTokenExpired = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('SignInStack');
   }
 
   callbackSuccess = async (response) => {
