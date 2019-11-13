@@ -39,7 +39,6 @@ export default class SignInScreen extends Component {
   };
 
   handleSignInPress = () => {
-    this.setState({ loading: true });
     const { email, password } = this.state;
 
     const user = {
@@ -47,6 +46,7 @@ export default class SignInScreen extends Component {
       password,
     };
 
+    this.setState({ loading: true });
     login(user, this.callbackSuccess, this.callbackError);
   };
 

@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -24,6 +25,7 @@ class SignUpScreen extends Component {
     passwordAgain: '',
     modalVisible: false,
     differentPasswords: false,
+    loading: false,
   };
 
   setModalVisible(visible) {
@@ -50,15 +52,21 @@ class SignUpScreen extends Component {
     const { name, email, password, passwordAgain } = this.state;
     const user = { name, email, password, passwordAgain };
 
-    if (password === passwordAgain) {
-      create(user, this.callbackCreate);
+    if ((password !== '' && passwordAgain !== '') && (password === passwordAgain)) {
+      this.setState({ loading: true });
+      create(user, this.callbackCreate, this.callbackError);
     } else {
       this.setState({ differentPasswords: true });
     }
   };
 
   callbackCreate = () => {
+    this.setState({ loading: false });
     this.setModalVisible(true);
+  }
+
+  callbackError = () => {
+    this.setState({ loading: false });
   }
 
   render() {
@@ -137,8 +145,14 @@ class SignUpScreen extends Component {
                 underlineColorAndroid="transparent"
               />
             </View>
-            <TouchableOpacity style={styles.buttonSignUp} onPress={this.handleSignUpPress}>
-              <Text style={styles.buttonText}>Cadastrar</Text>
+            <TouchableOpacity
+              style={styles.buttonSignUp}
+              onPress={this.handleSignUpPress}
+              disabled={this.state.loading}
+            >
+              {this.state.loading
+                ? <ActivityIndicator />
+                : <Text style={styles.buttonText}>Cadastrar</Text>}
             </TouchableOpacity>
           </View>
         </View>

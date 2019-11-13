@@ -1,12 +1,13 @@
 import api from './api';
 
-const create = (user, funcBackPage) => {
+const create = (user, funcBackPage, funcError) => {
   api.post('/users', user)
     .then(() => {
       funcBackPage();
     })
     .catch((error) => {
       console.log(error);
+      funcError();
     });
 };
 
