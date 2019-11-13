@@ -38,6 +38,10 @@ export default class SignInScreen extends Component {
     this.props.navigation.navigate('SignUp');
   };
 
+  handleLoadingChange = (loading) => {
+    this.setState({ loading });
+  }
+
   handleSignInPress = () => {
     const { email, password } = this.state;
 
@@ -46,18 +50,19 @@ export default class SignInScreen extends Component {
       password,
     };
 
-    this.setState({ loading: true });
+    this.handleLoadingChange(true);
     login(user, this.callbackSuccess, this.callbackError);
   };
 
   callbackSuccess = async (response) => {
-    this.setState({ loading: false });
+    this.handleLoadingChange(false);
     await AsyncStorage.setItem('token', response);
     this.props.navigation.navigate('Home');
   }
 
   callbackError = () => {
-    this.setState({ error: true, loading: false });
+    this.handleLoadingChange(false);
+    this.setState({ error: true });
   }
 
   handleSignUpPress = () => {

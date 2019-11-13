@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ImageBackground, View, Image } from 'react-native';
+import { ImageBackground, View, Image, ActivityIndicator } from 'react-native';
 import {
   Button,
   Text,
@@ -18,8 +18,16 @@ import styles from './styles';
 import { userAuthenticated } from '../../services/userApi';
 
 class HomeScreen extends Component {
+  state = {
+    loading: false,
+  }
+
   fetchUserAuthenticated = async () => {
-    userAuthenticated(this.callbackSuccess, this.callbackErrorTokenExpired);
+    userAuthenticated(this.callbackSuccess, this.callbackErrorTokenExpired, this.callbackAnyError);
+  }
+
+  callbackAnyError = async () => {
+    this.handleLoadingChange(false);
   }
 
   callbackErrorTokenExpired = async () => {
@@ -28,12 +36,18 @@ class HomeScreen extends Component {
   }
 
   callbackSuccess = async (response) => {
+    this.handleLoadingChange(false);
     await AsyncStorage.setItem('userAuthenticatedJson', JSON.stringify(response));
     this.props.navigation.navigate('ChooseTheme');
   }
 
   handlePlayPress = async () => {
+    this.handleLoadingChange(true);
     this.fetchUserAuthenticated();
+  }
+
+  handleLoadingChange = (loading) => {
+    this.setState({ loading });
   }
 
   render() {
@@ -59,6 +73,7 @@ class HomeScreen extends Component {
                 rounded
                 block
                 transparent
+                disabled={this.state.loading}
                 onPress={this.handlePlayPress}
               >
                 <IconMaterialCommunity
@@ -66,7 +81,9 @@ class HomeScreen extends Component {
                   size={30}
                   color="#ffffff"
                 />
-                <Text style={styles.buttonText}>JOGAR</Text>
+                {this.state.loading
+                  ? <ActivityIndicator />
+                  : <Text style={styles.buttonText}>JOGAR</Text>}
               </Button>
             </View>
             <View style={styles.containerLogoIfsp}>

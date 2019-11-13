@@ -48,12 +48,16 @@ class SignUpScreen extends Component {
     this.setState({ passwordAgain });
   }
 
+  handleLoadingChange = (loading) => {
+    this.setState({ loading });
+  }
+
   handleSignUpPress = () => {
     const { name, email, password, passwordAgain } = this.state;
     const user = { name, email, password, passwordAgain };
 
     if ((password !== '' && passwordAgain !== '') && (password === passwordAgain)) {
-      this.setState({ loading: true });
+      this.handleLoadingChange(true);
       create(user, this.callbackCreate, this.callbackError);
     } else {
       this.setState({ differentPasswords: true });
@@ -61,12 +65,12 @@ class SignUpScreen extends Component {
   };
 
   callbackCreate = () => {
-    this.setState({ loading: false });
+    this.handleLoadingChange(false);
     this.setModalVisible(true);
   }
 
   callbackError = () => {
-    this.setState({ loading: false });
+    this.handleLoadingChange(false);
   }
 
   render() {

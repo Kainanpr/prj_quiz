@@ -22,7 +22,7 @@ const login = (user, funcHomePage, funcError) => {
     });
 };
 
-const userAuthenticated = (funcSucess, funcErrorTokenExpired) => {
+const userAuthenticated = (funcSucess, funcErrorTokenExpired, funcAnyError) => {
   api.get('/users/authenticated')
     .then((response) => {
       const responseUser = {
@@ -35,6 +35,7 @@ const userAuthenticated = (funcSucess, funcErrorTokenExpired) => {
     })
     .catch((error) => {
       console.log(error);
+      funcAnyError();
       if (error.response && error.response.status === 403) {
         funcErrorTokenExpired();
       }
