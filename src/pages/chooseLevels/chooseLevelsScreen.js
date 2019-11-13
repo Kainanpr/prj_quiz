@@ -18,7 +18,7 @@ import { getGame } from '../../services/gameApi';
 
 class ChooseLevelsScreen extends Component {
   state = {
-    currentLevel: 1,
+    currentLevel: 0,
   }
 
   componentDidUpdate() {
@@ -61,18 +61,34 @@ class ChooseLevelsScreen extends Component {
         <View style={styles.content}>
           <View style={styles.containerButton}>
             <Button
-              style={styles.buttonUnlocked}
+              style={currentLevel > 0 && currentLevel <= 4
+                ? styles.buttonUnlocked : styles.buttonLocked}
               iconLeft
               rounded
               block
+              disabled={!(currentLevel > 0 && currentLevel <= 4)}
               onPress={() => this.handleLevelPress({ id: 1, name: 'Iniciante' })}
             >
-              <IconEntypo
-                name="check"
-                size={25}
-                color="white"
-              />
-              <Text style={styles.buttonTextUnlocked}>Iniciante</Text>
+              {(currentLevel > 0 && currentLevel <= 4)
+                ? (
+                  <IconEntypo
+                    name="check"
+                    size={25}
+                    color="white"
+                  />
+                )
+                : (
+                  <IconEntypo
+                    name="lock"
+                    size={25}
+                    color="#989898"
+                  />
+                )}
+              <Text style={currentLevel > 0 && currentLevel <= 4
+                ? styles.buttonTextUnlocked : styles.buttonTextLocked}
+              >
+                Iniciante
+              </Text>
             </Button>
           </View>
           <View style={styles.containerButton}>
