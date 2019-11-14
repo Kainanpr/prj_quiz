@@ -129,6 +129,7 @@ export default class SignInScreen extends Component {
             <TouchableOpacity
               style={styles.signUpLink}
               onPress={this.handleSignUpPress}
+              disabled={this.state.loading}
             >
               <Text style={styles.signUpLinkText}>Criar conta grátis</Text>
             </TouchableOpacity>
