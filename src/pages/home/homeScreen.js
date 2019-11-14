@@ -6,7 +6,6 @@ import {
   Text,
   Container,
 } from 'native-base';
-import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import CustomHeader from '../../components/header/customHeader';

@@ -19,15 +19,18 @@ import { getGame } from '../../services/gameApi';
 class ChooseLevelsScreen extends Component {
   state = {
     currentLevel: 0,
+    loading: true,
   }
 
   componentDidUpdate() {
     if (this.props.tabChanged) {
+      this.handleLoadingChange(true);
       this.props.onChangeTab(false);
       this.fetchGame();
     }
 
     if (this.props.focusOnContentScreenToFetch) {
+      this.handleLoadingChange(true);
       this.props.onChangeFocusOnContentScreenToFetch(false);
       this.fetchGame();
     }
@@ -39,14 +42,19 @@ class ChooseLevelsScreen extends Component {
     const userAuthenticatedJson = await AsyncStorage.getItem('userAuthenticatedJson');
     const userAuthenticated = JSON.parse(userAuthenticatedJson);
 
-    getGame(userAuthenticated.id, content.id, this.callbackSucessGetGame);
+    getGame(userAuthenticated.id, content.id, this.callbackSucessGetGame, this.callbackError);
   }
 
   callbackSucessGetGame = async (game) => {
+    this.handleLoadingChange(false);
     await AsyncStorage.setItem('gameJson', JSON.stringify(game));
     if (game.hasPractice || game.levelId > 1) {
       this.setState({ currentLevel: game.levelId });
     }
+  }
+
+  callbackError = async () => {
+    this.handleLoadingChange(false);
   }
 
   handleLevelPress = async (chosenLevel) => {
@@ -54,8 +62,12 @@ class ChooseLevelsScreen extends Component {
     this.props.onLevelPress(chosenLevel);
   }
 
+  handleLoadingChange = (loading) => {
+    this.setState({ loading });
+  }
+
   render() {
-    const { currentLevel } = this.state;
+    const { currentLevel, loading } = this.state;
 
     return (
       <Container style={styles.container}>
@@ -68,7 +80,7 @@ class ChooseLevelsScreen extends Component {
               iconLeft
               rounded
               block
-              disabled={!(currentLevel > 0 && currentLevel <= 4)}
+              disabled={loading || !(currentLevel > 0 && currentLevel <= 4)}
               onPress={() => this.handleLevelPress({ id: 1, name: 'Iniciante' })}
             >
               {(currentLevel > 0 && currentLevel <= 4)
@@ -100,7 +112,7 @@ class ChooseLevelsScreen extends Component {
               iconLeft
               rounded
               block
-              disabled={!(currentLevel > 1 && currentLevel <= 4)}
+              disabled={loading || !(currentLevel > 1 && currentLevel <= 4)}
               onPress={() => this.handleLevelPress({ id: 2, name: 'Básico' })}
             >
               {(currentLevel > 1 && currentLevel <= 4)
@@ -132,7 +144,7 @@ class ChooseLevelsScreen extends Component {
               iconLeft
               rounded
               block
-              disabled={!(currentLevel > 2 && currentLevel <= 4)}
+              disabled={loading || !(currentLevel > 2 && currentLevel <= 4)}
               onPress={() => this.handleLevelPress({ id: 3, name: 'Intermediário' })}
             >
               {(currentLevel > 2 && currentLevel <= 4)
@@ -163,7 +175,7 @@ class ChooseLevelsScreen extends Component {
               iconLeft
               rounded
               block
-              disabled={!(currentLevel === 4)}
+              disabled={loading || !(currentLevel === 4)}
               onPress={() => this.handleLevelPress({ id: 4, name: 'Avançado' })}
             >
               {(currentLevel === 4)
