@@ -76,14 +76,18 @@ class HomeScreen extends Component {
                 disabled={this.state.loading}
                 onPress={this.handlePlayPress}
               >
-                <IconMaterialCommunity
-                  name="play"
-                  size={30}
-                  color="#ffffff"
-                />
                 {this.state.loading
-                  ? <ActivityIndicator />
-                  : <Text style={styles.buttonText}>JOGAR</Text>}
+                  ? <ActivityIndicator color="white" />
+                  : (
+                    <>
+                      <IconMaterialCommunity
+                        name="play"
+                        size={30}
+                        color="#ffffff"
+                      />
+                      <Text style={styles.buttonText}>JOGAR</Text>
+                    </>
+                  )}
               </Button>
             </View>
             <View style={styles.containerLogoIfsp}>
