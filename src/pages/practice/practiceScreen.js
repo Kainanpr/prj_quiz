@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -25,6 +25,8 @@ class PracticeScreen extends Component {
     study: [],
     test: [],
     modalVisible: false,
+    loadingStudy: true,
+    loadingTest: true,
   }
 
   componentDidMount() {
@@ -47,6 +49,7 @@ class PracticeScreen extends Component {
   }
 
   callbackSucessGetStudy = (study) => {
+    this.handleLoadingStudyChange(false);
     this.setState({ study });
   }
 
@@ -61,7 +64,16 @@ class PracticeScreen extends Component {
   }
 
   callbackSucessGetTest = (test) => {
+    this.handleLoadingTestChange(false);
     this.setState({ test });
+  }
+
+  handleLoadingStudyChange(loadingStudy) {
+    this.setState({ loadingStudy });
+  }
+
+  handleLoadingTestChange(loadingTest) {
+    this.setState({ loadingTest });
   }
 
   render() {
@@ -90,6 +102,7 @@ class PracticeScreen extends Component {
               light
               rounded
               style={styles.button}
+              disabled={this.state.loadingStudy}
               onPress={() => {
                 if (this.state.study.length === 0) {
                   this.setModalVisible(true);
@@ -104,6 +117,7 @@ class PracticeScreen extends Component {
                 color="white"
               />
               <Text style={styles.buttonText}>Estude</Text>
+              {this.state.loadingStudy && <ActivityIndicator />}
             </Button>
           </View>
           <View style={styles.containerButton}>
@@ -113,6 +127,7 @@ class PracticeScreen extends Component {
               light
               rounded
               style={styles.button}
+              disabled={this.state.loadingStudy}
               onPress={() => {
                 if (this.state.study.length === 0) {
                   this.setModalVisible(true);
@@ -127,6 +142,7 @@ class PracticeScreen extends Component {
                 color="white"
               />
               <Text style={styles.buttonText}>Treine</Text>
+              {this.state.loadingStudy && <ActivityIndicator />}
             </Button>
           </View>
           <View style={styles.containerButton}>
@@ -136,6 +152,7 @@ class PracticeScreen extends Component {
               light
               rounded
               style={styles.button}
+              disabled={this.state.loadingTest}
               onPress={() => {
                 if (this.state.test.length === 0) {
                   this.setModalVisible(true);
@@ -150,6 +167,7 @@ class PracticeScreen extends Component {
                 color="white"
               />
               <Text style={styles.buttonText}>Teste</Text>
+              {this.state.loadingTest && <ActivityIndicator />}
             </Button>
           </View>
         </View>
