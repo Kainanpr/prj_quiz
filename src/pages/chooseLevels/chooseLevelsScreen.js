@@ -44,7 +44,9 @@ class ChooseLevelsScreen extends Component {
 
   callbackSucessGetGame = async (game) => {
     await AsyncStorage.setItem('gameJson', JSON.stringify(game));
-    this.setState({ currentLevel: game.levelId });
+    if (game.hasPractice || game.levelId > 1) {
+      this.setState({ currentLevel: game.levelId });
+    }
   }
 
   handleLevelPress = async (chosenLevel) => {
