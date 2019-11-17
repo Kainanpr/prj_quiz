@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   textOption: {
+    flex: 1,
     marginLeft: 20,
   },
   // Progress

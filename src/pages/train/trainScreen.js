@@ -165,7 +165,7 @@ class TrainScreen extends Component {
       <Text style={styles.textCopyAnswer}>Copiar a resposta</Text>
       <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
       <View style={styles.containerWordDoNotKnow}>
-        <Text>{this.state.word}</Text>
+        <Text style={styles.commonWord}>{this.state.word}</Text>
         <TouchableOpacity
           onPress={() => {
             Tts.stop();
@@ -183,7 +183,7 @@ class TrainScreen extends Component {
       </View>
       <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
       <View style={styles.containerWordDoNotKnow}>
-        <Text>{this.state.answer}</Text>
+        <Text style={styles.commonWord}>{this.state.answer}</Text>
         <TouchableOpacity
           onPress={() => {
             Tts.stop();
@@ -217,7 +217,7 @@ class TrainScreen extends Component {
       <Text style={styles.textCorrect}>Correta</Text>
       <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
       <View style={styles.containerWordDoNotKnow}>
-        <Text>{this.state.word}</Text>
+        <Text style={styles.commonWord}>{this.state.word}</Text>
         <TouchableOpacity
           onPress={() => {
             Tts.stop();
@@ -235,7 +235,7 @@ class TrainScreen extends Component {
       </View>
       <Text style={styles.textQuestionAndAnswer}>RESPOSTA</Text>
       <View style={styles.containerWordDoNotKnow}>
-        <Text>{this.state.answer}</Text>
+        <Text style={styles.commonWord}>{this.state.answer}</Text>
         <TouchableOpacity
           onPress={() => {
             Tts.stop();
@@ -283,7 +283,7 @@ class TrainScreen extends Component {
       <Text style={styles.textCopyAnswer}>Incorreta</Text>
       <Text style={styles.textQuestionAndAnswer}>PERGUNTA</Text>
       <View style={styles.containerWordDoNotKnow}>
-        <Text>{this.state.word}</Text>
+        <Text style={styles.commonWord}>{this.state.word}</Text>
         <TouchableOpacity
           onPress={() => {
             Tts.stop();

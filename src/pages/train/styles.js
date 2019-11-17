@@ -46,7 +46,13 @@ const styles = StyleSheet.create({
     color: '#3ccfcf',
   },
   word: {
+    flex: 1,
     fontSize: 20,
+    marginRight: 10,
+  },
+  commonWord: {
+    flex: 1,
+    marginRight: 10,
   },
   containerAnswer: {
     marginTop: 20,
@@ -105,9 +111,13 @@ const styles = StyleSheet.create({
   // Screen incorrect
   textAnswer: {
     color: '#23b26d',
+    flex: 1,
+    marginRight: 10,
   },
   textTryAnswer: {
     color: '#ff725b',
+    flex: 1,
+    marginRight: 10,
   },
 });
 
